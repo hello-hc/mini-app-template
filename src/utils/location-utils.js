@@ -51,7 +51,7 @@ class LocationUtils {
 
   /**
    * 打开位置信息实时获取开关
-   * @param {Function} uploadLocations
+   * uploadLocations: action (即请求)
    */
   static checkToStartBackgroundLocationUpdate(uploadLocations) {
     Taro.getSetting({
@@ -82,7 +82,7 @@ class LocationUtils {
 
   /**
    * 开始位置信息实时获取上报
-   * @param {Function} uploadLocations
+   * uploadLocations: action (即请求)
    */
   static startLocationMonitorFunction(uploadLocations) {
     // uploadLocations 表示请求，在这里即为 action
