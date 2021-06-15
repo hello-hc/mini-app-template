@@ -1,15 +1,15 @@
 # MiniAppTemplate
 
 ## 项目介绍
-  此项目基于Taro3.x开发的微信小程序模版
+  **此项目基于Taro3.x开发的微信小程序模版**
 
 ## 主要技术栈
   Taro3.x + React + React Redux + React Saga + Axios + Sass + Eslint
 
 ## 版本
-  taro: v3.0.23
-  node: v14.15.3
-  npm: 6.14.9
+  > taro: v3.0.23
+  > node: v14.15.3
+  > npm: 6.14.9
 
 ## 基本使用
 ````js
@@ -50,3 +50,4 @@
   抽离的请求API的常量（包括错误码...）
 10. api-request
   封装的基于Axios的API请求函数
+
