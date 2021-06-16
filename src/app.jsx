@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import store from '@/store';
 import ApiRequest from '@/utils/api-request';
 
-import './app.scss'
+import './app.scss';
 
 class App extends Component {
   componentDidMount () {
@@ -24,8 +24,8 @@ class App extends Component {
       <Provider store={store}>
         {this.props.children}
       </Provider>
-    )
+    );
   }
 }
 
-export default App
+export default App;
