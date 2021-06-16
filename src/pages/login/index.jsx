@@ -1,13 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { View, Image, Checkbox, Button, Input, Text } from "@tarojs/components";
+import { View, Checkbox, Button, Input, Text } from "@tarojs/components";
 import Taro from "@tarojs/taro";
 
-import PhoneLogin from "@/common/phone-sign-in/phone-sign-in.jsx";
-import Validate from "@/utils/WxValidate";
-import wechatAuthorization from "@/utils/wechat-authorization.js";
-import BackgroundImg from "@/resource/images/sign_bg.png";
-import LogoImg from "@/resource/images/white_logo.png";
+import Validate from "@/utils/wx-vaildate";
+import WechatAuthorization from "@/utils/wechat-authorization.js";
 import { login, sendActiveCode } from "@/store/actions";
 
 import "./index.scss";
@@ -21,24 +18,14 @@ class Login extends Component {
       verificationCode: null,
       code: "验证码",
       codeDisabled: false,
-      agreePrivacyPolicy: false
+      agreePrivacyPolicy: false,
     };
   }
 
-  onLoad(options) {
-    const token = Taro.getStorageSync("token");
-
-    if (token) {
-      // this.getData();
-    } else if (options?.showLogin) {
-      // this.isHide = 2;
-    } else {
-      // this.isHide = 1;
-    }
+  onLoad() {
     // 初始化校验规则
     this.initValidate();
-    // wechatAuthorization.checkSessionAndLogin();
-    Taro.login().then(res => Taro.setStorageSync("WxLoginCode", res.code));
+    Taro.login().then((res) => Taro.setStorageSync("WxLoginCode", res.code));
   }
 
   componentDidShow() {
@@ -49,39 +36,39 @@ class Login extends Component {
     const rules = {
       phoneNumber: {
         required: true,
-        phone: true
+        phone: true,
       },
       verificationCode: {
-        required: true
-      }
+        required: true,
+      },
     };
     const messages = {
       phoneNumber: {
         required: "请填写你的手机号码",
-        phone: "请填写正确的手机号码"
+        phone: "请填写正确的手机号码",
       },
       verificationCode: {
-        required: "验证码为空"
-      }
+        required: "验证码为空",
+      },
     };
     this.Validate = new Validate(rules, messages);
   }
 
   // 获取手机号
-  onGetPhoneNumber = data => {
+  onGetPhoneNumber = (data) => {
     if (!data) {
       return this.setState({
         isManuallyLogin: true,
-        agreePrivacyPolicy: false
+        agreePrivacyPolicy: false,
       });
     }
 
-    wechatAuthorization.authorization(data, this.props.login, false);
+    WechatAuthorization.authorization(data, this.props.login, false);
   };
 
   handleChange = (key, e) => {
     this.setState({
-      [key]: e.detail.value
+      [key]: e.detail.value,
     });
   };
 
@@ -93,7 +80,6 @@ class Login extends Component {
       return false;
     }
 
-    console.log("onSubmit: ", this.state);
     // 传入表单数据，调用验证方法
     if (!this.Validate.checkForm({ phoneNumber, verificationCode })) {
       const error = this.Validate.errorList[0];
@@ -103,15 +89,15 @@ class Login extends Component {
     }
 
     // 验证通过以后
-    console.log("数据提交请求后端API时，携带的数据为：", {
+    console.log("数据验证后的请求参数：", {
       phoneNumber,
-      verificationCode
+      verificationCode,
     });
 
-    wechatAuthorization.authorization(
+    WechatAuthorization.authorization(
       {
         mobile: phoneNumber,
-        activeCode: verificationCode
+        activeCode: verificationCode,
       },
       this.props.login,
       true
@@ -136,61 +122,90 @@ class Login extends Component {
       if (totalTime === 0) {
         this.setState({
           code: "验证码",
-          codeDisabled: false
+          codeDisabled: false,
         });
         clearInterval(this.timeInterval);
         return (this.timeInterval = null);
       }
       this.setState({
-        code: `${totalTime}秒后再试`
+        code: `${totalTime}秒后再试`,
       });
     }, 1000);
   };
 
+  // 跳转隐私服务协议
   gotoWebviewPage = () => {
-    const url = 'http://localhost:3000';
+    const url = "http://localhost:3000";
     Taro.navigateTo({
-      url: `/pages/webview/index?url=${encodeURIComponent(url)}`
+      url: `/pages/webview/index?url=${encodeURIComponent(url)}`,
     });
   };
 
   leftBtnHandle = () => {
     this.leftHideBtnClicked = true;
     this.goToSwitchServerPage();
-  }
+  };
 
   rightBtnHandle = () => {
     this.rightHideBtnClicked = true;
     this.goToSwitchServerPage();
-  }
+  };
 
+  // 跳转环境切换界面
   goToSwitchServerPage = () => {
-    if(this.leftHideBtnClicked && this.rightHideBtnClicked) {
+    if (this.leftHideBtnClicked && this.rightHideBtnClicked) {
       this.leftHideBtnClicked = false;
       this.rightHideBtnClicked = false;
-      Taro.navigateTo({url: "/pages/switch-server/index"});
+      Taro.navigateTo({ url: "/pages/switch-server/index" });
     }
-  }
+  };
+
+  getPhoneNumber = (e) => {
+    const { agreePrivacyPolicy } = this.state;
+
+    if (!agreePrivacyPolicy) {
+      return Taro.showToast({
+        title: "请勾选服务协议",
+        icon: "none",
+      });
+    }
+    const { errMsg } = e.detail;
+
+    this.onGetPhoneNumber(errMsg === "getPhoneNumber:ok" ? e.detail : false);
+  };
 
   render() {
     const {
       isManuallyLogin,
       code,
       codeDisabled,
-      agreePrivacyPolicy
+      agreePrivacyPolicy,
+      phoneNumber,
+      verificationCode,
     } = this.state;
 
     return (
       <View className='login'>
         <View className='login__imgs'>
-          <Image className='login__logo' src={LogoImg} />
-          <Image className='login__bg' src={BackgroundImg} />
+          {/* <Image className='login__logo' src={LogoImg} />
+          <Image className='login__bg' src={BackgroundImg} /> */}
         </View>
         {!isManuallyLogin ? (
-          <PhoneLogin
-            agreePrivacyPolicy={agreePrivacyPolicy}
-            onGetPhoneNumber={this.onGetPhoneNumber}
-          />
+          <View className='login__mode'>
+            <Button
+              className='login__mode--one-key'
+              openType='getPhoneNumber'
+              onGetPhoneNumber={this.getPhoneNumber}
+            >
+              微信一键登录
+            </Button>
+            <Button
+              className='login__mode--verification-code'
+              onClick={() => this.onGetPhoneNumber(false)}
+            >
+              手机验证码登录
+            </Button>
+          </View>
         ) : (
           <View className='login__form'>
             <View className='login__form--phone'>
@@ -199,7 +214,7 @@ class Login extends Component {
                 name='phoneNumber'
                 className='login__form--phone-number'
                 placeholder='手机号'
-                value={this.state.phoneNumber}
+                value={phoneNumber}
                 onInput={this.handleChange.bind(this, "phoneNumber")}
               />
               <Button
@@ -216,7 +231,7 @@ class Login extends Component {
                 type='text'
                 className='login__form--verification-code'
                 placeholder='验证码'
-                value={this.state.verificationCode}
+                value={verificationCode}
                 onInput={this.handleChange.bind(this, "verificationCode")}
               />
             </View>
@@ -230,29 +245,30 @@ class Login extends Component {
             className='login__bottom-checkbox'
             color='#e6001a'
             checked={agreePrivacyPolicy}
-            onClick={e => {
+            onClick={(e) => {
               e.stopPropagation();
               this.setState({
-                agreePrivacyPolicy: !agreePrivacyPolicy
+                agreePrivacyPolicy: !agreePrivacyPolicy,
               });
             }}
           />
           <View>
             登录就代表您已接受
-            <Text
-              className='login__bottom-link'
-              onClick={this.gotoWebviewPage}
-            >
+            <Text className='login__bottom-link' onClick={this.gotoWebviewPage}>
               服务及隐私协议
             </Text>
           </View>
         </View>
-        <View className='login__bottom-remark'>
-          此小程序仅作为微信模版使用
-        </View>
+        <View className='login__bottom-remark'>此小程序仅作为微信模版使用</View>
         <View className='switch-server-view'>
-          <Button className='switch-server-button' onClick={this.leftBtnHandle} />
-          <Button className='switch-server-button' onClick={this.rightBtnHandle} />
+          <Button
+            className='switch-server-button'
+            onClick={this.leftBtnHandle}
+          />
+          <Button
+            className='switch-server-button'
+            onClick={this.rightBtnHandle}
+          />
         </View>
       </View>
     );
@@ -261,10 +277,10 @@ class Login extends Component {
 
 export default connect(
   ({ user }) => ({
-    loginResult: user.loginResult
+    loginResult: user.loginResult,
   }),
   {
     login,
-    sendActiveCode
+    sendActiveCode,
   }
 )(Login);

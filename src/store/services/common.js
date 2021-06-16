@@ -1,9 +1,9 @@
 import { ApiConfig } from "@/utils/api-config";
 import ApiRequest from "@/utils/api-request";
 
-export async function getTruckList(params) {
+export async function getList(params) {
   const response = await ApiRequest.get(
-    ApiRequest.assemblePath(ApiConfig.API_INFO.getTrucks, null, params)
+    ApiRequest.assemblePath(ApiConfig.API_INFO.getList, null, params)
   );
 
   return response;

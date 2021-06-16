@@ -118,6 +118,34 @@
       color: #ccc;
     }
   }
+
+  &__mode {
+    width: 100%;
+    height: calc(100vh - 80rpx);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    button {
+      color: #fff;
+      border-radius: 50rpx;
+    }
+
+    button::after {
+      border: none;
+      border-radius: 0;
+    }
+
+    &--one-key {
+      margin: 300rpx 50rpx 30rpx 50rpx;
+      background-color: #ccc;
+    }
+
+    &--verification-code {
+      margin: 0 50rpx;
+      background-color: #e6001a;
+    }
+  }
 }
 
 .switch-server-view {

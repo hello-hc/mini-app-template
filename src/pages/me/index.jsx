@@ -6,20 +6,17 @@ import Taro from "@tarojs/taro";
 import TabBar from "@/common/tab-bar/tab-bar.jsx";
 import { initState } from "@/store";
 import { userLogout } from "@/store/actions";
-import Constants from "@/utils/constants";
+import Utils from '@/utils/utils';
 
 import "./index.scss";
 
-const { USER_TYPE } = Constants;
-
 class Me extends Component {
   constructor(props) {
-    const { userType, mobile } = props.userInfo;
+    const { mobile } = props.userInfo;
     super(props);
     this.state = {
       phoneNumber: mobile
     };
-    this.isDriver = userType === USER_TYPE.DRIVER;
   }
 
   // 跳转至登录页
@@ -27,26 +24,24 @@ class Me extends Component {
     Taro.reLaunch({ url: "/pages/sign-in/index" });
   }
 
-  // 退出登录事件
+  // 退出登录
   logout = () => {
-    let that = this;
+    const that = this;
 
     Taro.showModal({
       title: "确认退出登录吗"
     }).then(res => {
       if (res.confirm) {
-        console.log("用户点击确定");
         // 退出登录，清除本地缓存
         Taro.clearStorage({
           success: () => {
-            console.log("清除缓存成功");
             this.props.userLogout(initState);
             that.skip();
             // 关闭监听实时位置变化，前后台都停止消息接收
             Taro.stopLocationUpdate();
           },
-          fail: failRes => {
-            console.log(failRes, "清除缓存失败");
+          fail: () => {
+            Utils.showToastFn("退出登录失败");
           }
         });
       }

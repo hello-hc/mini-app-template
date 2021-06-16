@@ -3,6 +3,9 @@ class ApiConfig {
     return {
       login: {
         path: '/user/login',
+      },
+      getList: {
+        path: '/user/list'
       }
     };
   }

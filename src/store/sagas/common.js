@@ -12,11 +12,11 @@ export function* requestList() {
     let action = yield take(channel);
 
     try {
-      const { isDriver, keyWord, ...params } = action.data;
+      const { isClient, keyWord, ...params } = action.data;
       let response;
       yield put(actions.loadingStart());
 
-      if (isDriver) {
+      if (isClient) {
         response = yield call(CommonServices.requestDriverList, params);
 
         if (!response?.data?.curPage) {
