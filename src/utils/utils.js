@@ -37,7 +37,7 @@ class Utils {
       const rect = Taro.createSelectorQuery().select(id).boundingClientRect();
 
       if (rect) {
-        let domRect = await new Promise(function (resolve) {
+        const domRect = await new Promise(function (resolve) {
           rect.exec(function(response) {
             const domData = response[0];
             if (domData) {
@@ -55,6 +55,21 @@ class Utils {
       }
     }).catch(() => {
       return null;
+    });
+  }
+
+  /**
+   * 抽离的公共提示函数
+   * @param {String} title
+   * @param {Function} complete
+   */
+  static showToastFn(title = "请求错误", complete = () => {}) {
+    Taro.showToast({
+      title,
+      icon: 'none',
+      duration: 2000,
+      mask: true,
+      complete
     });
   }
 }

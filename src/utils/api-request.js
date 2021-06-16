@@ -4,6 +4,7 @@ import {compile} from 'path-to-regexp';
 import _ from 'lodash';
 
 import APIConstants from '@/utils/api-constants';
+import Utils from '@/utils/utils';
 
 const {
   COMMON_RESPONSE_STATUS,
@@ -172,7 +173,11 @@ function _request({path: url}, params = {}, method, {headers = null} = {}) {
         Taro.hideLoading();
       }
       console.log('响应：', res.data);
-      if (res.status === 200 && res.data && res.data.status === COMMON_RESPONSE_STATUS.SUCCESS) {
+      if (
+        res.status === 200
+        && res.data
+        && res.data.status === COMMON_RESPONSE_STATUS.SUCCESS
+      ) {
         /**
          * status: 1000
          * data: 返回的数据
@@ -183,7 +188,7 @@ function _request({path: url}, params = {}, method, {headers = null} = {}) {
          * status: 错误码
          * message: 错误信息
          */
-        reject(res.data);
+        handleCommonError(res.data, {resolve, reject});
       }
     }).catch(err => {
       Taro.hideLoading();
@@ -192,27 +197,26 @@ function _request({path: url}, params = {}, method, {headers = null} = {}) {
   });
 }
 
-function handleCommonApiError(errInfo, title) {
+/**
+ * API错误处理
+ */
+function handleCommonError(errInfo, {resolve, reject}) {
   const {status, message} = errInfo;
+
   if (status) {
     if (status === COMMON_RESPONSE_STATUS.TOKEN_INVALID) {
       Taro.removeStorageSync('token');
       Taro.removeStorageSync('TaroLoginCode');
       Taro.redirectTo({ url: '/pages/sign-in/index' });
-    } else if (status === 9006) {
-      isShowToast = true;
-      showToastFn(message, handleToastComplete);
     } else {
       const msg = APIConstants.COMMON_ERRORS_MSG_KEY(status);
       isShowToast = true;
-      if (msg) {
-        showToastFn(msg, handleToastComplete);
-      } else {
-        showToastFn(message, handleToastComplete);
-      }
+
+      Utils.showToastFn(msg ?? message, handleToastComplete);
     }
+    resolve();
   } else {
-    showToastFn(title);
+    reject(errInfo);
   }
 }
 
@@ -223,39 +227,29 @@ function handleToastComplete() {
   }, 2000);
 }
 
-export function showToastFn(title = "请求失败", callback = () => {}) {
-  Taro.showToast({
-    title,
-    icon: 'none',
-    duration: 2000,
-    mask: true,
-    complete:() => callback()
-  });
-}
-
-export function handleCommonError(errInfo, {title}) {
-  handleCommonApiError(errInfo, title);
-}
-
 export default class ApiRequest {
-  static defaultHeaders() {
+  static get defaultHeaders() {
     return defaultHeaders;
   }
 
-  static setBaseUrl(url) {
-    _setBaseUrl(url);
+  static get getHeaders() {
+    return _getHeaders();
   }
 
-  static getBaseUrl() {
+  static get baseUrlDic() {
+    return _baseUrlDic;
+  }
+
+  static get getBaseUrl() {
     return _getBaseUrl();
+  }
+
+  static set setBaseUrl(url) {
+    _setBaseUrl(url);
   }
 
   static assemblePath(pathInfo, keys, queryParams) {
     return _assemblePath(pathInfo, keys, queryParams);
-  }
-
-  static getHeaders() {
-    return _getHeaders();
   }
 
   static post(url, params, ...rest) {
@@ -272,9 +266,5 @@ export default class ApiRequest {
 
   static delete(url, params, ...rest) {
     return _delete(url, params, ...rest);
-  }
-
-  static baseUrlDic() {
-    return _baseUrlDic;
   }
 }
