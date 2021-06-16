@@ -1,0 +1,138 @@
+.login {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  &__imgs {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    z-index: -1;
+  }
+
+  &__logo {
+    position: absolute;
+    top: 30%;
+    left: calc(50% - 190rpx);
+    width: 380rpx;
+    height: 94rpx;
+  }
+
+  &__bg {
+    width: 100%;
+  }
+
+  &__form {
+    width: 100%;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 360rpx;
+
+    .at-button__text {
+      color: white;
+    }
+
+    &--phone {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 100rpx;
+      border-bottom: 2rpx solid #ccc;
+      margin: 30rpx 60rpx;
+
+      &-number {
+        width: 60%;
+        height: 80rpx;
+        line-height: 80rpx;
+      }
+
+      &-button {
+        font-size: 28rpx;
+        border: none;
+        margin: 0;
+        color: #fff;
+        background-color: #ccc;
+        border-radius: 4rpx;
+      }
+
+      &-button::after {
+        border: none;
+      }
+    }
+
+    &--verification {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 2rpx solid #ccc;
+      margin: 30rpx 60rpx;
+
+      &-code {
+        height: 80rpx;
+        line-height: 80rpx;
+      }
+    }
+
+    &-button {
+      margin: 30rpx 60rpx;
+      border: none;
+      border-radius: 50rpx;
+      color: #fff;
+      background-color: #333;
+    }
+
+    &-button::after {
+      border: none;
+      border-radius: 0;
+    }
+  }
+
+  &__bottom {
+    position: absolute;
+    bottom: 50rpx;
+    left: 30rpx;
+    right: 30rpx;
+    font-size: 24rpx;
+    height: 80rpx;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    color: #ccc;
+
+    &-checkbox {
+      transform: scale(0.7);
+    }
+    &-link {
+      color: rgb(70, 125, 185);
+      text-decoration: underline;
+    }
+    &-remark {
+      position: absolute;
+      bottom: 30rpx;
+      text-align: center;
+      width: 100%;
+      font-size: 25rpx;
+      color: #ccc;
+    }
+  }
+}
+
+.switch-server-view {
+  position: fixed;
+  bottom: 0;
+  padding: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  opacity: 0;
+
+}
+.switch-server-button {
+  width: 70px;
+  height: 70px;
+  margin: 0;
+  background-color: transparent;
+}

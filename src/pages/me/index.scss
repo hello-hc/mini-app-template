@@ -1,0 +1,43 @@
+.me {
+  background-color: rgba(249, 249, 249, 1);
+  height: calc(100vh - 15rpx);
+  width: 100%;
+  padding-top: 15rpx;
+
+  &-user {
+    height: 400rpx;
+    margin-bottom: 30rpx;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #fff;
+
+    &--icon {
+      width: 100rpx;
+      height: 100rpx;
+    }
+
+    &--name {
+      margin: 10rpx 0;
+    }
+
+    &--phone {
+      font-size: 28rpx;
+      color: #ccc;
+    }
+  }
+
+  &-logout {
+    button {
+      color: #e6001a;
+      border-radius: 0;
+      background-color: #fff;
+    }
+
+    button::after {
+      border: none;
+      border-radius: 0;
+    }
+  }
+}

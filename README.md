@@ -2,6 +2,7 @@
 
 ## 项目介绍
   **此项目基于Taro3.x开发的微信小程序模版**
+  备注：本项目暂未完成（正在完善中）
 
 ## 主要技术栈
   Taro3.x + React + React Redux + React Saga + Axios + Sass + Eslint
