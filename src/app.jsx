@@ -1,14 +1,15 @@
-import React, { Component } from 'react'
-import { Provider } from 'react-redux'
+import React, { Component } from 'react';
+import { Provider } from 'react-redux';
 
-import configStore from './store'
+import store from '@/store';
+import ApiRequest from '@/utils/api-request';
 
 import './app.scss'
 
-const store = configStore()
-
 class App extends Component {
-  componentDidMount () {}
+  componentDidMount () {
+    ApiRequest.setBaseUrl('http://localhost:3000');
+  }
 
   componentDidShow () {}
 

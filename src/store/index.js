@@ -1,28 +1,32 @@
-import { createStore, applyMiddleware, compose } from 'redux'
-import thunkMiddleware from 'redux-thunk'
-import rootReducer from '../reducers'
+import { createStore, applyMiddleware, compose } from "redux";
+import createSagaMiddleware, { END } from "redux-saga";
+import rootReducer from "./reducers";
+import rootSaga from "./sagas";
 
 const composeEnhancers =
-  typeof window === 'object' &&
-  window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?   
-    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
-      // Specify extension’s options like name, actionsBlacklist, actionsCreators, serialize...
-    }) : compose
+  typeof window === "object" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
+    : compose;
 
-const middlewares = [
-  thunkMiddleware
-]
+function configStore() {
+  const sagamiddleware = createSagaMiddleware();
+  const middlewares = [sagamiddleware];
 
-if (process.env.NODE_ENV === 'development' && process.env.TARO_ENV !== 'quickapp') {
-  middlewares.push(require('redux-logger').createLogger())
+  if (process.env.NODE_ENV === "development") {
+    middlewares.push(require("redux-logger").createLogger());
+  }
+
+  const store = createStore(
+    rootReducer,
+    composeEnhancers(applyMiddleware(...middlewares))
+  );
+  store.runSaga = sagamiddleware.run;
+  store.close = () => store.dispatch(END);
+  store.runSaga(rootSaga);
+
+  return store;
 }
+const store = configStore();
 
-const enhancer = composeEnhancers(
-  applyMiddleware(...middlewares),
-  // other store enhancers if any
-)
-
-export default function configStore () {
-  const store = createStore(rootReducer, enhancer)
-  return store
-}
+export const initState = store.getState();
+export default store;

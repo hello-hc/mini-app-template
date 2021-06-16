@@ -69,7 +69,7 @@ function _assemblePath(pathInfo, keys, queryParams) {
     result = toPath(keys);
 
     if (queryParams && _.isObject(queryParams)) {
-      let query = Object.keys(queryParams)
+      const query = Object.keys(queryParams)
        .filter(key => queryParams[key])
        .map(key => `${key}=${queryParams[key]}`)
        .join('&');
