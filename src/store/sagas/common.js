@@ -29,11 +29,7 @@ export function* requestList() {
         });
       }
 
-      if (keyWord) {
-        yield put(actions.requestSearchListSuccess(response.data));
-      } else {
-        yield put(actions.requestListSuccess(response.data));
-      }
+      yield put(actions.requestListSuccess(response.data));
     } catch (error) {
       Utils.showToastFn("列表数据获取失败");
     } finally {

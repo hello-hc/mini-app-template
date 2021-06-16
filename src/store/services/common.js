@@ -1,4 +1,4 @@
-import { ApiConfig } from "@/utils/api-config";
+import ApiConfig from "@/utils/api-config";
 import ApiRequest from "@/utils/api-request";
 
 export async function getList(params) {
