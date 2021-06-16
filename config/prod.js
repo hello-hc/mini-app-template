@@ -1,8 +1,16 @@
 module.exports = {
   env: {
-    NODE_ENV: '"production"'
+    NODE_ENV: '"production"',
   },
-  defineConstants: {
+  defineConstants: {},
+  terser: {
+    enable: true,
+    config: {
+      // 配置项同 https://github.com/terser/terser#minify-options
+      format: {
+        comments: false,
+      },
+    },
   },
   mini: {},
   h5: {
@@ -14,5 +22,5 @@ module.exports = {
      *     .use(require('webpack-bundle-analyzer').BundleAnalyzerPlugin, [])
      * }
      */
-  }
-}
+  },
+};
