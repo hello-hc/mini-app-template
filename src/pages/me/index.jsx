@@ -15,14 +15,14 @@ const Me = () => {
   const dispatch = useDispatch();
 
   // 跳转至登录页
-  function skip() {
+  const skip = () => {
     Taro.reLaunch({ url: "/pages/login/index" });
-  }
+  };
 
   /**
    * 退出登录
    */
-  function logout() {
+  const logout = () => {
     Taro.showModal({
       title: "确认退出登录吗",
     }).then((res) => {
@@ -41,7 +41,7 @@ const Me = () => {
         });
       }
     });
-  }
+  };
 
   return (
     <View className="me">

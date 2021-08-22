@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Image } from "@tarojs/components";
 import Taro from "@tarojs/taro";
 
@@ -9,63 +9,55 @@ import MeSelectedIcon from "@/resource/copyImages/me_active.svg";
 
 import "./tab-bar.scss";
 
-class CustomTabBar extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      renderList: [
-        {
-          text: "首页",
-          pagePath: "/pages/index/index",
-          iconPath: IndexIcon,
-          selectedIconPath: IndexSelectedIcon,
-          active: props.val === "index" ? true : false,
-        },
-        {
-          text: "我的",
-          pagePath: "/pages/me/index",
-          iconPath: MeIcon,
-          selectedIconPath: MeSelectedIcon,
-          active: props.val === "me" ? true : false,
-        },
-      ],
-    };
-  }
+const CustomTabBar = (props) => {
+  const { val } = props;
+  const [renderList, setRenderList] = useState([
+    {
+      text: "首页",
+      pagePath: "/pages/index/index",
+      iconPath: IndexIcon,
+      selectedIconPath: IndexSelectedIcon,
+      active: val === "index" ? true : false,
+    },
+    {
+      text: "我的",
+      pagePath: "/pages/me/index",
+      iconPath: MeIcon,
+      selectedIconPath: MeSelectedIcon,
+      active: val === "me" ? true : false,
+    },
+  ]);
 
-  handleClick = (pagePath) => {
+  const handleClick = (pagePath) => {
     Taro.switchTab({ url: pagePath });
   };
 
-  render() {
-    const { renderList } = this.state;
+  return (
+    <View className="tab-bar">
+      {renderList.map((item) => {
+        const { text, pagePath, iconPath, selectedIconPath, active } = item;
 
-    return (
-      <View className="tab-bar">
-        {renderList.map((item) => {
-          const { text, pagePath, iconPath, selectedIconPath, active } = item;
-
-          return (
+        return (
+          <View
+            className="tab-bar__item"
+            key={text}
+            onClick={() => handleClick(pagePath)}
+          >
+            <Image
+              className="tab-bar__item-img"
+              src={active ? selectedIconPath : iconPath}
+            />
             <View
-              className="tab-bar__item"
-              key={text}
-              onClick={this.handleClick.bind(this, pagePath)}
+              className="tab-bar__item-text"
+              style={{ color: active ? "#93B5CF" : "#CDD1D3" }}
             >
-              <Image
-                className="tab-bar__item-img"
-                src={active ? selectedIconPath : iconPath}
-              />
-              <View
-                className="tab-bar__item-text"
-                style={{ color: active ? "#93B5CF" : "#CDD1D3" }}
-              >
-                {text}
-              </View>
+              {text}
             </View>
-          );
-        })}
-      </View>
-    );
-  }
-}
+          </View>
+        );
+      })}
+    </View>
+  );
+};
 
 export default CustomTabBar;

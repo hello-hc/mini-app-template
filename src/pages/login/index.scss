@@ -40,7 +40,7 @@
       justify-content: space-between;
       align-items: center;
       padding-top: 100rpx;
-      border-bottom: 2rpx solid #CDD1D3;
+      border-bottom: 2rpx solid #cdd1d3;
       margin: 30rpx 60rpx;
 
       &-number {
@@ -54,7 +54,7 @@
         border: none;
         margin: 0;
         color: #fff;
-        background-color: #CDD1D3;
+        background-color: #cdd1d3;
         border-radius: 4rpx;
       }
 
@@ -66,7 +66,7 @@
     &--verification {
       display: flex;
       justify-content: space-between;
-      border-bottom: 2rpx solid #CDD1D3;
+      border-bottom: 2rpx solid #cdd1d3;
       margin: 30rpx 60rpx;
 
       &-code {
@@ -100,7 +100,7 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    color: #CDD1D3;
+    color: #cdd1d3;
 
     &-checkbox {
       transform: scale(0.7);
@@ -115,7 +115,7 @@
       text-align: center;
       width: 100%;
       font-size: 25rpx;
-      color: #CDD1D3;
+      color: #cdd1d3;
     }
   }
 
@@ -138,12 +138,12 @@
 
     &--one-key {
       margin: 300rpx 50rpx 30rpx 50rpx;
-      background-color: #93B5CF;
+      background-color: #93b5cf;
     }
 
     &--verification-code {
       margin: 0 50rpx;
-      background-color: #CDD1D3;
+      background-color: #cdd1d3;
     }
   }
 }
@@ -156,7 +156,6 @@
   display: flex;
   justify-content: space-between;
   opacity: 0;
-
 }
 .switch-server-button {
   width: 70px;

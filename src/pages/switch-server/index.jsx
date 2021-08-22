@@ -1,5 +1,4 @@
-/* eslint-disable no-unused-vars */
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Button, RadioGroup, Radio, Text } from "@tarojs/components";
 import Taro from "@tarojs/taro";
 
@@ -7,31 +6,25 @@ import ApiRequest from "@/utils/api-request";
 
 import "./index.scss";
 
-class SwitchServer extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      // 环境切换列表
-      serverList: [
-        {
-          name: "login",
-          address: "https://login.cn/mini/app",
-        },
-        {
-          name: "qa",
-          address: "https://qa.cn/mini/app",
-        },
-        {
-          name: "dev",
-          address: "http://localhost:3000",
-        },
-      ],
-    };
-  }
+const SwitchServer = () => {
+  // // 环境切换列表
+  const [serverList, setServerList] = useState([
+    {
+      name: "login",
+      address: "https://login.cn/mini/app",
+    },
+    {
+      name: "qa",
+      address: "https://qa.cn/mini/app",
+    },
+    {
+      name: "dev",
+      address: "http://localhost:3000",
+    },
+  ]);
+  const serverUrl = ApiRequest.getBaseUrl();
 
-  onLoad() {
-    const { serverList } = this.state;
-    const serverUrl = ApiRequest.getBaseUrl();
+  useEffect(() => {
     let found = false;
 
     for (let serverDic of serverList) {
@@ -41,19 +34,17 @@ class SwitchServer extends Component {
         break;
       }
     }
+
     if (!found) {
       // 如果都没有选中，则默认选中最后一个，而且把之前输入的值显示出来
       const lastServerDic = serverList[serverList.length - 1];
       lastServerDic.checked = true;
       lastServerDic.address = serverUrl;
     }
+    setServerList([...serverList]);
+  }, []);
 
-    this.setState({ serverList: [...serverList] });
-  }
-
-  radioChange = (e) => {
-    const { serverList } = this.state;
-
+  const radioChange = (e) => {
     for (let serverDic of serverList) {
       if (serverDic.name === e.detail.value) {
         serverDic.checked = true;
@@ -61,12 +52,10 @@ class SwitchServer extends Component {
         serverDic.checked = false;
       }
     }
-    this.setState({ serverList: [...serverList] });
+    setServerList([...serverList]);
   };
 
-  saveHandle = () => {
-    const { serverList } = this.state;
-
+  const saveHandle = () => {
     for (let serverDic of serverList) {
       if (serverDic.checked) {
         ApiRequest.setBaseUrl(serverDic.address);
@@ -75,38 +64,30 @@ class SwitchServer extends Component {
     }
   };
 
-  render() {
-    const { serverList } = this.state;
+  return (
+    <View className="switch-server">
+      <RadioGroup className="radio-group" onChange={radioChange}>
+        {serverList.map((item) => {
+          const { name, checked, address = "" } = item;
 
-    console.log("====================================");
-    console.log(serverList);
-    console.log("====================================");
-
-    return (
-      <View className="switch-server">
-        <RadioGroup className="radio-group" onChange={this.radioChange}>
-          {serverList.map((item) => {
-            const { name, checked, address = "" } = item;
-
-            return (
-              <Radio
-                className="radio"
-                key={name}
-                value={name}
-                checked={checked}
-                color="skyblue"
-              >
-                <Text className="switch-server_text">{address}</Text>
-              </Radio>
-            );
-          })}
-        </RadioGroup>
-        <Button class="switch-server_save" onClick={this.saveHandle}>
-          保存
-        </Button>
-      </View>
-    );
-  }
-}
+          return (
+            <Radio
+              className="radio"
+              key={name}
+              value={name}
+              checked={checked}
+              color="skyblue"
+            >
+              <Text className="switch-server_text">{address}</Text>
+            </Radio>
+          );
+        })}
+      </RadioGroup>
+      <Button class="switch-server_save" onClick={saveHandle}>
+        保存
+      </Button>
+    </View>
+  );
+};
 
 export default SwitchServer;

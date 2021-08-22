@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { View } from "@tarojs/components";
 import Taro from "@tarojs/taro";
 
@@ -8,46 +8,31 @@ import { setUserInfo } from "@/store/actions";
 
 import "./index.scss";
 
-class Index extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-    this.userType =
-      props?.userInfo?.userType ?? Taro.getStorageSync("userType");
-  }
+const Index = () => {
+  const dispatch = useDispatch();
+  const userInfo = useSelector((store) => store.common.userInfo);
+  const token = Taro.getStorageSync("token");
+  const mobile = Taro.getStorageSync("mobile");
+  const userType = userInfo?.userType ?? Taro.getStorageSync("userType");
 
-  onLoad() {
-    const token = Taro.getStorageSync("token");
+  useEffect(() => {
     if (!token) {
-      Taro.redirectTo({ url: "/pages/login/index" });
-    } else {
-      const userType = Taro.getStorageSync("userType");
-      this.props.setUserInfo({
-        userType: userType,
-        mobile: Taro.getStorageSync("mobile"),
+      Taro.redirectTo({
+        url: "/pages/login/index",
       });
+    } else {
+      dispatch(setUserInfo({ userType, mobile }));
     }
-  }
+  }, []);
 
-  render() {
-    const token = Taro.getStorageSync("token");
-    if (!token) return null;
+  if (!token) return null;
 
-    return (
-      <View className="index">
-        <View className="index__content">index page</View>
-        <TabBar val="index" />
-      </View>
-    );
-  }
-}
+  return (
+    <View className="index">
+      <View className="index__content">index page</View>
+      <TabBar val="index" />
+    </View>
+  );
+};
 
-export default connect(
-  ({ common }) => ({
-    loading: common.loading,
-    userInfo: common.userInfo,
-  }),
-  {
-    setUserInfo,
-  }
-)(Index);
+export default Index;
