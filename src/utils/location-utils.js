@@ -18,7 +18,7 @@ class LocationUtils {
             type: "gcj02",
             success: function (locationRes) {
               Taro.hideLoading();
-              let baiduLocation = LocationUtils.gcj2bd(locationRes);
+              let baiduLocation = LocationUtils.gcjToBaidu(locationRes);
               success(baiduLocation);
             },
             fail: function () {
@@ -85,19 +85,19 @@ class LocationUtils {
    * uploadLocations: action (即请求)
    */
   static startLocationMonitorFunction(uploadLocations) {
-    // uploadLocations 表示请求，在这里即为 action
     Taro.startLocationUpdateBackground();
     Taro.onLocationChange(function (locationRes) {
       const storedLocations = Taro.getStorageSync("BackgroundLocations") || [];
       const lastPoint = storedLocations[storedLocations.length - 1];
       const currentTime = new Date();
+      const baiduLocation = LocationUtils.gcjToBaidu(locationRes);
 
       // 如果想在开启位置信息实时上报的一开始，就上报一次位置信息，可在外部调用时，先设置此值
       // 即一开始不等60秒再上报
       if (Taro.getStorageSync("isFirst")) {
         uploadLocations({
-          latitude: locationRes.latitude,
-          longitude: locationRes.longitude,
+          latitude: baiduLocation.latitude,
+          longitude: baiduLocation.longitude,
           date: currentTime,
           showLoading: false,
         });
@@ -112,8 +112,8 @@ class LocationUtils {
        */
       if (!lastPoint || currentTime - new Date(lastPoint?.date) >= 30000) {
         storedLocations.push({
-          latitude: locationRes.latitude,
-          longitude: locationRes.longitude,
+          latitude: baiduLocation.latitude,
+          longitude: baiduLocation.longitude,
           date: currentTime,
         });
         // 实时存储位置信息（有需要可以自行开启）
@@ -128,8 +128,8 @@ class LocationUtils {
 
       if (storedLocations.length > 2) {
         uploadLocations({
-          latitude: locationRes.latitude,
-          longitude: locationRes.longitude,
+          latitude: baiduLocation.latitude,
+          longitude: baiduLocation.longitude,
           date: currentTime,
           showLoading: false,
         });
@@ -141,19 +141,38 @@ class LocationUtils {
   }
 
   /**
-   * @param {Object} poi
+   * 将gcj-02(火星坐标)转为bd-09(百度坐标)
+   * @param {Object} point
    */
-  static gcj2bd(poi) {
-    let xPi = (3.14159265358979324 * 3000.0) / 180.0;
-    var poi2 = {};
-    var x = poi.longitude;
-    let y = poi.latitude;
-    var z = Math.sqrt(x * x + y * y) + 0.00002 * Math.sin(y * xPi);
-    var theta = Math.atan2(y, x) + 0.000003 * Math.cos(x * xPi);
-    poi2.longitude = z * Math.cos(theta) + 0.0065;
-    poi2.latitude = z * Math.sin(theta) + 0.006;
+  static gcjToBaidu(point) {
+    const xPi = (3.14159265358979324 * 3000.0) / 180.0;
+    let newPonit = {};
+    const x = point.longitude;
+    const y = point.latitude;
+    const z = Math.sqrt(x * x + y * y) + 0.00002 * Math.sin(y * xPi);
+    const theta = Math.atan2(y, x) + 0.000003 * Math.cos(x * xPi);
+    newPonit.longitude = z * Math.cos(theta) + 0.0065;
+    newPonit.latitude = z * Math.sin(theta) + 0.006;
 
-    return poi2;
+    return newPonit;
+  }
+
+  /**
+   *  将bd-09(百度坐标)转为gcj-02(火星坐标)
+   *  @param {Object} point
+   */
+  static baiduToGcj(point) {
+    const {latitude, longitude} = point;
+    const xPi = 3.14159265358979323846264338327950288 * 3000.0 / 180.0;
+
+    const x = longitude - 0.0065;
+    const y = latitude - 0.006;
+    const z = Math.sqrt(x * x + y * y) - 0.00002 * Math.sin(y * xPi);
+    const theta = Math.atan2(y, x) - 0.000003 * Math.cos(x * xPi);
+    const gcj_latitude = z * Math.sin(theta);
+    const gcj_longitude = z * Math.cos(theta);
+
+    return { latitude: gcj_latitude, longitude: gcj_longitude };
   }
 }
 
