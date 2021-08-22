@@ -1,0 +1,31 @@
+.nav-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  // padding-top: 40rpx;
+  // height: 70rpx;
+  display: flex;
+  align-items: center;
+  color: #fff;
+  background-color: #e6001a;
+
+  &--home {
+    width: 10%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+
+    &-img {
+      width: 45rpx;
+      height: 45rpx;
+    }
+  }
+
+  &--text {
+    width: 90%;
+    text-align: center;
+    transform: translateX(-5%);
+  }
+}
