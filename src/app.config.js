@@ -35,7 +35,7 @@ export default {
     backgroundTextStyle: "light",
     navigationBarBackgroundColor: "#fff",
     navigationBarTitleText: "WeChat",
-    navigationBarTextStyle: "black",
+    navigationBarTextStyle: "white",
     onReachBottomDistance: 50
   },
   // 分包加载示例（同小程序配置 https://developers.weixin.qq.com/miniprogram/dev/framework/subpackages/basic.html），如果有需要请自行添加

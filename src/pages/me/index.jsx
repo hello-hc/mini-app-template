@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { View, Button, Text, OpenData } from "@tarojs/components";
 import Taro from "@tarojs/taro";
 
-import TabBar from "@/common/tab-bar/tab-bar.jsx";
+import TabBar from "@/common/tab-bar";
 import { initState } from "@/store";
 import { userLogout } from "@/store/actions";
 import Utils from "@/utils/utils";
