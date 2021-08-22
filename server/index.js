@@ -1,2 +1,2 @@
-require("@babel/register");
-require("./api-server");
+require('@babel/register');
+require('./api-server');

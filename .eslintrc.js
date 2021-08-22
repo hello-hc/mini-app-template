@@ -9,6 +9,7 @@ module.exports = {
   'env': {
     'browser': true
   },
+  'extends': 'standard',
   'rules': {
     // allow paren-less arrow functions
     'arrow-parens': 0,

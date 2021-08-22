@@ -135,10 +135,10 @@ class Login extends Component {
 
   // 跳转隐私服务协议
   gotoWebviewPage = () => {
-    const url = "http://localhost:3000";
-    Taro.navigateTo({
-      url: `/pages/webview/index?url=${encodeURIComponent(url)}`,
-    });
+    // const url = "http://localhost:3000";
+    // Taro.navigateTo({
+    //   url: `/pages/webview/index?url=${encodeURIComponent(url)}`,
+    // });
   };
 
   leftBtnHandle = () => {
@@ -243,7 +243,7 @@ class Login extends Component {
         <View className='login__bottom'>
           <Checkbox
             className='login__bottom-checkbox'
-            color='#e6001a'
+            color='#93B5CF'
             checked={agreePrivacyPolicy}
             onClick={(e) => {
               e.stopPropagation();
@@ -276,8 +276,8 @@ class Login extends Component {
 }
 
 export default connect(
-  ({ user }) => ({
-    loginResult: user.loginResult,
+  ({ common }) => ({
+    loginResult: common.loginResult,
   }),
   {
     login,

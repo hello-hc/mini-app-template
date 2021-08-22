@@ -1,0 +1,24 @@
+.switch-server {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  align-items: center;
+
+  &_text {
+    margin: 20px;
+  }
+
+  &_save {
+    width: 460rpx;
+    height: 80rpx;
+    line-height: 80rpx;
+    font-size: 32rpx;
+    padding: 0;
+    margin: 20rpx auto;
+  }
+}
+
+.radio {
+  line-height: 60rpx;
+  padding: 0 10rpx;
+}

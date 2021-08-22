@@ -33,7 +33,7 @@ class WechatAuthorization {
           const { token, type, mobile } = result;
           if (token && type && mobile) {
             Taro.setStorageSync("token", token);
-            Taro.setStorageSync("userType", type); // type === Vendor / Driver / Customer
+            Taro.setStorageSync("userType", type);
             Taro.setStorageSync("mobile", mobile);
 
             // 获取到用户信息后跳转到首页

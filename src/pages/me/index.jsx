@@ -21,7 +21,7 @@ class Me extends Component {
 
   // 跳转至登录页
   skip() {
-    Taro.reLaunch({ url: "/pages/sign-in/index" });
+    Taro.reLaunch({ url: "/pages/login/index" });
   }
 
   // 退出登录
@@ -68,8 +68,8 @@ class Me extends Component {
 }
 
 export default connect(
-  ({ user }) => ({
-    userInfo: user.userInfo
+  ({ common }) => ({
+    userInfo: common.userInfo
   }),
   {
     userLogout

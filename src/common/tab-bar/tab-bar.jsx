@@ -56,7 +56,7 @@ class CustomTabBar extends Component {
               />
               <View
                 className='tab-bar__item-text'
-                style={{ color: active ? "#e6001a" : "#ccc" }}
+                style={{ color: active ? "#93B5CF" : "#CDD1D3" }}
               >
                 {text}
               </View>

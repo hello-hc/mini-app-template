@@ -1,5 +1,6 @@
 export const LOGIN = Symbol('LOGIN');
 export const USER_LOGOUT = Symbol('USER_LOGOUT');
+export const LOGIN_SUCCESS = Symbol('LOGIN_SUCCESS');
 
 export const LOADING_START = Symbol('LOADING_START');
 export const LOADING_END = Symbol('LOADING_END');

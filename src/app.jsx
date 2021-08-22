@@ -8,7 +8,7 @@ import './app.scss';
 
 class App extends Component {
   componentDidMount () {
-    ApiRequest.setBaseUrl('http://localhost:3000');
+    ApiRequest.setBaseUrl('http://localhost:3000/mini/app');
   }
 
   componentDidShow () {}

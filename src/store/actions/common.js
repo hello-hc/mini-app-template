@@ -11,6 +11,7 @@ import {
 
   SEND_ACTIVE_CODE,
   LOGIN,
+  LOGIN_SUCCESS,
 } from '../constants';
 
 export const loadingStart = () => {
@@ -49,6 +50,13 @@ export const login = (data) => {
 	return {
 		type: LOGIN,
     data
+	};
+};
+
+export const loginSuccess = (data) => {
+	return {
+		type: LOGIN_SUCCESS,
+		data
 	};
 };
 
