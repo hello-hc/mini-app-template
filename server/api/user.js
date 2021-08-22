@@ -4,7 +4,7 @@ const Router = require("koa-router");
 const router = new Router();
 
 router.post("/login", (ctx) => {
-  console.log(ctx, 'ctx');
+  console.log(ctx, "ctx");
 
   ctx.body = {
     status: 200,

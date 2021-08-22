@@ -2,7 +2,8 @@
 
 ## 项目介绍
   **此项目基于Taro3.x开发的微信小程序模版**
-  备注：本项目暂未完成（正在完善中）
+
+> 本项目无主页面组件展示，主要是作为小程序开发参考使用
 
 ## 主要技术栈
   Taro3.x + React + React Redux + React Saga + Axios + Sass + Eslint
@@ -20,7 +21,6 @@
   npm run dev:weapp
   // 打包
   npm run build:weapp
-
 
   // 使用本地mock数据
   // 修改 app.jsx 文件中的 baseUrl 为 http://localhost:3000

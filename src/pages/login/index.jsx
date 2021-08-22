@@ -185,65 +185,65 @@ class Login extends Component {
     } = this.state;
 
     return (
-      <View className='login'>
-        <View className='login__imgs'>
+      <View className="login">
+        <View className="login__imgs">
           {/* <Image className='login__logo' src={LogoImg} />
           <Image className='login__bg' src={BackgroundImg} /> */}
         </View>
         {!isManuallyLogin ? (
-          <View className='login__mode'>
+          <View className="login__mode">
             <Button
-              className='login__mode--one-key'
-              openType='getPhoneNumber'
+              className="login__mode--one-key"
+              openType="getPhoneNumber"
               onGetPhoneNumber={this.getPhoneNumber}
             >
               微信一键登录
             </Button>
             <Button
-              className='login__mode--verification-code'
+              className="login__mode--verification-code"
               onClick={() => this.onGetPhoneNumber(false)}
             >
               手机验证码登录
             </Button>
           </View>
         ) : (
-          <View className='login__form'>
-            <View className='login__form--phone'>
+          <View className="login__form">
+            <View className="login__form--phone">
               <Input
-                type='text'
-                name='phoneNumber'
-                className='login__form--phone-number'
-                placeholder='手机号'
+                type="text"
+                name="phoneNumber"
+                className="login__form--phone-number"
+                placeholder="手机号"
                 value={phoneNumber}
                 onInput={this.handleChange.bind(this, "phoneNumber")}
               />
               <Button
-                className='login__form--phone-button'
+                className="login__form--phone-button"
                 disabled={codeDisabled}
                 onClick={this.getVerificationCode}
               >
                 {code}
               </Button>
             </View>
-            <View className='login__form--verification'>
+            <View className="login__form--verification">
               <Input
-                name='verificationCode'
-                type='text'
-                className='login__form--verification-code'
-                placeholder='验证码'
+                name="verificationCode"
+                type="text"
+                className="login__form--verification-code"
+                placeholder="验证码"
                 value={verificationCode}
                 onInput={this.handleChange.bind(this, "verificationCode")}
               />
             </View>
-            <Button className='login__form-button' onClick={this.onSubmit}>
+            <Button className="login__form-button" onClick={this.onSubmit}>
               登录
             </Button>
           </View>
         )}
-        <View className='login__bottom'>
+        <View className="login__bottom">
           <Checkbox
-            className='login__bottom-checkbox'
-            color='#93B5CF'
+            className="login__bottom-checkbox"
+            color="#93B5CF"
             checked={agreePrivacyPolicy}
             onClick={(e) => {
               e.stopPropagation();
@@ -254,19 +254,19 @@ class Login extends Component {
           />
           <View>
             登录就代表您已接受
-            <Text className='login__bottom-link' onClick={this.gotoWebviewPage}>
+            <Text className="login__bottom-link" onClick={this.gotoWebviewPage}>
               服务及隐私协议
             </Text>
           </View>
         </View>
-        <View className='login__bottom-remark'>此小程序仅作为微信模版使用</View>
-        <View className='switch-server-view'>
+        <View className="login__bottom-remark">此小程序仅作为微信模版使用</View>
+        <View className="switch-server-view">
           <Button
-            className='switch-server-button'
+            className="switch-server-button"
             onClick={this.leftBtnHandle}
           />
           <Button
-            className='switch-server-button'
+            className="switch-server-button"
             onClick={this.rightBtnHandle}
           />
         </View>

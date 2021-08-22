@@ -169,13 +169,11 @@ function _request({ path: url }, params = {}, method, { headers = null } = {}) {
           Taro.hideLoading();
         }
         console.log("响应：", res.data);
-        if (
-          res.status === 200 && res.data
-        ) {
+        if (res.status === 200 && res.data) {
           /**
            * status: 1000
            * data: 返回的数据
-            */
+           */
           resolve(res.data);
         } else {
           /**
@@ -185,7 +183,8 @@ function _request({ path: url }, params = {}, method, { headers = null } = {}) {
           reject(res.data);
           // handleCommonApiError(res.data, reject);
         }
-      }).catch((err) => {
+      })
+      .catch((err) => {
         Taro.hideLoading();
         reject(err);
       });

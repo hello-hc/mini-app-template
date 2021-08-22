@@ -6,15 +6,17 @@ import ApiRequest from '@/utils/api-request';
 
 import './app.scss';
 
-const App  = () => {
+const App = (props) => {
+  const {children} = props;
+
   useEffect(() => {
     // 挂载后
     ApiRequest.setBaseUrl('http://localhost:3000/mini/app');
-  });
+  }, []);
 
   return (
     <Provider store={store}>
-      {this.props.children}
+      {children}
     </Provider>
   );
 };
