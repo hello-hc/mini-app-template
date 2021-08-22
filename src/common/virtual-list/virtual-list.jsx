@@ -2,10 +2,10 @@ import React, { Component } from "react";
 import { View } from "@tarojs/components";
 import { connect } from "react-redux";
 import VirtualList from "@tarojs/components/virtual-list";
-import _ from 'underscore';
+import {throttle} from 'loadsh';
 
-import VirtualListRow from "@/common/virtual-list-row/virtual-list-row.jsx";
-import EmptyStatus from "@/common/empty-status/empty-status.jsx";
+import VirtualListRow from "@/common/virtual-list-row";
+import EmptyStatus from "@/common/empty-status";
 
 import "./virtual-list.scss";
 
@@ -47,7 +47,7 @@ class VirtualCommonList extends Component {
             itemCount={renderListLength} // 渲染列表的长度
             itemSize={itemSize} // 列表单项的高度
             onScroll={({ scrollDirection, scrollOffset }) => {
-              const throttleFn = _.throttle(this.listReachBottom, 2000, { trailing: false });
+              const throttleFn = throttle(this.listReachBottom, 2000, { trailing: false });
               if (
                 // 避免重复加载数据
                 !loading &&

@@ -1,0 +1,102 @@
+@import "~taro-ui/dist/style/components/icon.scss";
+@import "~taro-ui/dist/style/components/tag.scss";
+
+.virtual-list-row {
+  width: 100%;
+  height: 100%;
+  padding: 0 30rpx;
+  display: flex;
+  align-items: center;
+
+  &__all-load {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #909090;
+
+    &--vendor {
+      margin-bottom: 180rpx;
+    }
+  }
+
+  &__content {
+    width: calc(100% - 110rpx);
+    height: 100%;
+    font-size: 28rpx;
+    display: flex;
+    // justify-content: center;
+    // flex-direction: column;
+    border-bottom: 2rpx solid #c7c7cc;
+  }
+
+  &__icon {
+    width: 48rpx;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    color: #c7c7cc;
+    border-bottom: 2rpx solid #c7c7cc;
+  }
+
+  &__left, &__right {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  &__right {
+    align-items: flex-end;
+  }
+
+  &__left-text {
+    color: #909090;
+  }
+
+  &--time {
+    color:#909090;
+  }
+
+  &--truckPlate {
+    font-size: 32rpx;
+    font-weight: bold;
+    color: #333;
+  }
+
+  .virtual-list-row, &--gray {
+    border-color: #ccc;
+  }
+  .virtual-list-row, &--green {
+    color: #30fa62;
+    border-color: #30fa62;
+    background-color: #c2fdd1;
+  }
+  .virtual-list-row, &--blue {
+    color: #1aa7f8;
+    border-color: #1aa7f8;
+    background-color: #a9dcfa;
+  }
+  .virtual-list-row, &--orange {
+    color: #fc9e11;
+    border-color: #fc9e11;
+    background-color: #fcdeb2;
+  }
+  .virtual-list-row, &--violet {
+    color: #7711fc;
+    border-color: #7711fc;
+    background-color: #bf90fc;
+  }
+
+  .virtual-list-row &--gray,
+  .virtual-list-row &--green,
+  .virtual-list-row &--blue,
+  .virtual-list-row &--orange,
+  .virtual-list-row &--violet {
+    height: 40rpx;
+    font-size: 24rpx;
+    padding: 0 20rpx;
+    line-height: 40rpx;
+    width: 150rpx;
+  }
+}
