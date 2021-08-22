@@ -10,7 +10,7 @@ class WechatAuthorization {
    * login: action (即请求)
    * @param {Boolean} isPhoneLogin (是否为验证码登录)
    */
-  static authorization(data, login, isPhoneLogin = true) {
+  static authorization(data, login, isPhoneLogin = true, dispatch = null) {
     const loginToOurServer = () => {
       const code = Taro.getStorageSync("WxLoginCode");
       let params;
@@ -27,22 +27,24 @@ class WechatAuthorization {
           encryptedData: data.encryptedData,
         };
       }
-      login({
-        ...params,
-        callback: (result) => {
-          const { token, type, mobile } = result;
-          if (token && type && mobile) {
-            Taro.setStorageSync("token", token);
-            Taro.setStorageSync("userType", type);
-            Taro.setStorageSync("mobile", mobile);
+      dispatch(
+        login({
+          ...params,
+          callback: (result) => {
+            const { token, type, mobile } = result;
+            if (token && type && mobile) {
+              Taro.setStorageSync("token", token);
+              Taro.setStorageSync("userType", type);
+              Taro.setStorageSync("mobile", mobile);
 
-            // 获取到用户信息后跳转到首页
-            Taro.reLaunch({ url: "/pages/index/index" });
-          } else {
-            Taro.showToast({ title: "登录失败", icon: "none" });
-          }
-        },
-      });
+              // 获取到用户信息后跳转到首页
+              Taro.reLaunch({ url: "/pages/index/index" });
+            } else {
+              Taro.showToast({ title: "登录失败", icon: "none" });
+            }
+          },
+        })
+      );
     };
 
     Taro.clearStorageSync();

@@ -6,7 +6,7 @@
 > 本项目无主页面组件展示，主要是作为小程序开发参考使用
 
 ## 主要技术栈
-  Taro3.x + React + React Redux + React Saga + Axios + Sass + Eslint
+  Taro3.x + React (Hooks) + React Redux + React Saga + Axios + Sass + Eslint
 
 ## 版本
   > taro: v3.0.23
