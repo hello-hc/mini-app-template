@@ -2,10 +2,11 @@ export default {
   pages: [
     'pages/index/index',
     'pages/me/index',
+    'pages/switch-server/index',
   ],
   tabBar: {
     color: "#333",
-    selectedColor: "#e6001a",
+    selectedColor: "#93B5CF",
     backgroundColor: "#fff",
     list:
     [
@@ -41,7 +42,7 @@ export default {
   subpackages: [
     {
       root: "pages/login", // 分包根目录
-      pages: [ // 分包页面路径，相对与分包根目录
+      pages: [ // 分包页面路径，相对于分包根目录
         'index',
       ]
     },

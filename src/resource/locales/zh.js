@@ -7,7 +7,7 @@ export default function zh (value) {
     'confirm.quit': '确认退出登录吗',
     'logout': '退出登录',
 
-    // sign-in
+    // login
     'get.code': '获取验证码',
     'please.phone.number': '请填写你的手机号码',
     'please.correct.phone.number': '请填写正确的手机号码',

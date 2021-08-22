@@ -11,14 +11,12 @@ import Utils from '@/utils/utils';
 import "./index.scss";
 
 const Me = () => {
-  const userInfo = useSelector(props => props.userInfo);
+  const userInfo = useSelector(props => props.common.userInfo);
   const dispatch = useDispatch();
 
-  /**
-   * 跳转至登录页
-   */
-  function skip() {
-    Taro.reLaunch({ url: "/pages/sign-in/index" });
+  // 跳转至登录页
+  skip() {
+    Taro.reLaunch({ url: "/pages/login/index" });
   }
 
   /**

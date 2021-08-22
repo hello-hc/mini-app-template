@@ -1,7 +1,7 @@
 class APIConstants {
   static get COMMON_RESPONSE_STATUS() {
     return {
-      SUCCESS: 1000,
+      SUCCESS: 200,
       SYSTEM_ABNORMAL_ERROR: 2000,
       TOKEN_INVALID: 3000,
     };

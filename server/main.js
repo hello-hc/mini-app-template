@@ -1,5 +1,5 @@
-const router = require("koa-router")();
+const router = require('koa-router')();
 
-router.use("/mini/orion/user", require("./api/user"));
+router.use("/mini/app/user", require("./api/user"));
 
 module.exports = router.routes();

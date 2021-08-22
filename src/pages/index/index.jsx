@@ -12,13 +12,13 @@ class Index extends Component {
   constructor(props) {
     super(props);
     this.state = {};
-    this.userType = props.userInfo?.userType ?? Taro.getStorageSync("userType");
+    this.userType = props?.userInfo?.userType ?? Taro.getStorageSync("userType");
   }
 
   onLoad() {
     const token = Taro.getStorageSync("token");
     if (!token) {
-      Taro.redirectTo({ url: "/pages/sign-in/index" });
+      Taro.redirectTo({ url: "/pages/login/index" });
     } else {
       const userType = Taro.getStorageSync("userType");
       this.props.setUserInfo({
@@ -42,9 +42,9 @@ class Index extends Component {
 }
 
 export default connect(
-  ({ common, user }) => ({
+  ({ common }) => ({
     loading: common.loading,
-    userInfo: user.userInfo,
+    userInfo: common.userInfo,
   }),
   {
     setUserInfo,

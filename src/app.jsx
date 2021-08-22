@@ -9,7 +9,7 @@ import './app.scss';
 const App  = () => {
   useEffect(() => {
     // 挂载后
-    ApiRequest.setBaseUrl('http://localhost:3000');
+    ApiRequest.setBaseUrl('http://localhost:3000/mini/app');
   });
 
   return (

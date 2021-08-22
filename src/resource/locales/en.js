@@ -7,7 +7,7 @@ export default function en (value) {
     'confirm.quit': 'Are you sure to log out',
     'logout': 'Log Out',
 
-    // sign-in
+    // login
     'get.code': 'Get code',
     'please.phone.number': 'Please fill in your mobile phone number',
     'please.correct.phone.number': 'Please fill in the correct mobile phone number',
