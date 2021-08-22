@@ -4,8 +4,8 @@
 class Constants {
   static get USER_TYPE() {
     return {
-      CLIENT: 'CLIENT',
-      DEVELOPMENT: 'DEVELOPMENT'
+      CLIENT: "CLIENT",
+      DEVELOPMENT: "DEVELOPMENT",
     };
   }
 }

@@ -1,4 +1,4 @@
-const router = require('koa-router')();
+const router = require("koa-router")();
 
 router.use("/mini/app/user", require("./api/user"));
 

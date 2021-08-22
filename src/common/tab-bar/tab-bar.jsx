@@ -19,20 +19,20 @@ class CustomTabBar extends Component {
           pagePath: "/pages/index/index",
           iconPath: IndexIcon,
           selectedIconPath: IndexSelectedIcon,
-          active: props.val === "index" ? true : false
+          active: props.val === "index" ? true : false,
         },
         {
           text: "我的",
           pagePath: "/pages/me/index",
           iconPath: MeIcon,
           selectedIconPath: MeSelectedIcon,
-          active: props.val === "me" ? true : false
-        }
-      ]
+          active: props.val === "me" ? true : false,
+        },
+      ],
     };
   }
 
-  handleClick = pagePath => {
+  handleClick = (pagePath) => {
     Taro.switchTab({ url: pagePath });
   };
 
@@ -40,22 +40,22 @@ class CustomTabBar extends Component {
     const { renderList } = this.state;
 
     return (
-      <View className='tab-bar'>
-        {renderList.map(item => {
+      <View className="tab-bar">
+        {renderList.map((item) => {
           const { text, pagePath, iconPath, selectedIconPath, active } = item;
 
           return (
             <View
-              className='tab-bar__item'
+              className="tab-bar__item"
               key={text}
               onClick={this.handleClick.bind(this, pagePath)}
             >
               <Image
-                className='tab-bar__item-img'
+                className="tab-bar__item-img"
                 src={active ? selectedIconPath : iconPath}
               />
               <View
-                className='tab-bar__item-text'
+                className="tab-bar__item-text"
                 style={{ color: active ? "#93B5CF" : "#CDD1D3" }}
               >
                 {text}

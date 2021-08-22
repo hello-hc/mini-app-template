@@ -24,7 +24,7 @@ class SwitchServer extends Component {
         {
           name: "dev",
           address: "http://localhost:3000",
-        }
+        },
       ],
     };
   }
@@ -78,30 +78,30 @@ class SwitchServer extends Component {
   render() {
     const { serverList } = this.state;
 
-    console.log('====================================');
+    console.log("====================================");
     console.log(serverList);
-    console.log('====================================');
+    console.log("====================================");
 
     return (
-      <View className='switch-server'>
-        <RadioGroup className='radio-group' onChange={this.radioChange}>
+      <View className="switch-server">
+        <RadioGroup className="radio-group" onChange={this.radioChange}>
           {serverList.map((item) => {
             const { name, checked, address = "" } = item;
 
             return (
               <Radio
-                className='radio'
+                className="radio"
                 key={name}
                 value={name}
                 checked={checked}
-                color='skyblue'
+                color="skyblue"
               >
-                <Text className='switch-server_text'>{address}</Text>
+                <Text className="switch-server_text">{address}</Text>
               </Radio>
             );
           })}
         </RadioGroup>
-        <Button class='switch-server_save' onClick={this.saveHandle}>
+        <Button class="switch-server_save" onClick={this.saveHandle}>
           保存
         </Button>
       </View>

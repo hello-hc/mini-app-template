@@ -10,7 +10,7 @@ class WxValidate {
     Object.assign(this, {
       data: {},
       rules,
-      messages
+      messages,
     });
     this.__init();
   }
@@ -38,25 +38,25 @@ class WxValidate {
   __initDefaults() {
     this.defaults = {
       messages: {
-        required: '这是必填字段。',
-        email: '请输入有效的电子邮件地址。',
-        phone: '请输入11位的手机号码。',
-        url: '请输入有效的网址。',
-        date: '请输入有效的日期。',
-        dateISO: '请输入有效的日期（ISO），例如：2009-06-23，1998/01/22。',
-        number: '请输入有效的数字。',
-        digits: '只能输入数字。',
-        idcard: '请输入18位的有效身份证。',
-        equalTo: this.formatTpl('输入值必须和 {0} 相同。'),
-        contains: this.formatTpl('输入值必须包含 {0}。'),
-        minlength: this.formatTpl('最少要输入 {0} 个字符。'),
-        maxlength: this.formatTpl('最多可以输入 {0} 个字符。'),
-        rangelength: this.formatTpl('请输入长度在 {0} 到 {1} 之间的字符。'),
-        min: this.formatTpl('请输入不小于 {0} 的数值。'),
-        max: this.formatTpl('请输入不大于 {0} 的数值。'),
-        range: this.formatTpl('请输入范围在 {0} 到 {1} 之间的数值。'),
-        truckTemplateNumber: '请填写正确的车牌号'
-      }
+        required: "这是必填字段。",
+        email: "请输入有效的电子邮件地址。",
+        phone: "请输入11位的手机号码。",
+        url: "请输入有效的网址。",
+        date: "请输入有效的日期。",
+        dateISO: "请输入有效的日期（ISO），例如：2009-06-23，1998/01/22。",
+        number: "请输入有效的数字。",
+        digits: "只能输入数字。",
+        idcard: "请输入18位的有效身份证。",
+        equalTo: this.formatTpl("输入值必须和 {0} 相同。"),
+        contains: this.formatTpl("输入值必须包含 {0}。"),
+        minlength: this.formatTpl("最少要输入 {0} 个字符。"),
+        maxlength: this.formatTpl("最多可以输入 {0} 个字符。"),
+        rangelength: this.formatTpl("请输入长度在 {0} 到 {1} 之间的字符。"),
+        min: this.formatTpl("请输入不小于 {0} 的数值。"),
+        max: this.formatTpl("请输入不大于 {0} 的数值。"),
+        range: this.formatTpl("请输入范围在 {0} 到 {1} 之间的数值。"),
+        truckTemplateNumber: "请填写正确的车牌号",
+      },
     };
   }
 
@@ -71,10 +71,10 @@ class WxValidate {
        */
       required(value, param) {
         if (!that.depend(param)) {
-          return 'dependency-mismatch';
-        } else if (typeof value === 'number') {
+          return "dependency-mismatch";
+        } else if (typeof value === "number") {
           value = value.toString();
-        } else if (typeof value === 'boolean') {
+        } else if (typeof value === "boolean") {
           return !0;
         }
 
@@ -84,13 +84,23 @@ class WxValidate {
        * 验证电子邮箱格式
        */
       email(value) {
-        return that.optional(value) || /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(value);
+        return (
+          that.optional(value) ||
+          /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(
+            value
+          )
+        );
       },
       /**
        * 验证车牌号
        */
       truckTemplateNumber(value) {
-        return that.optional(value) || /^([\u4e00-\u7ca3\u7ca5-\u9fff][A-Z][\dA-Z]{5,6}|(\u7ca4[A-Y][\dA-Z]{5,6})|(\u7ca4Z[\dA-Z]{4}[\u4e00-\u9fff]?))$/.test(value);
+        return (
+          that.optional(value) ||
+          /^([\u4e00-\u7ca3\u7ca5-\u9fff][A-Z][\dA-Z]{5,6}|(\u7ca4[A-Y][\dA-Z]{5,6})|(\u7ca4Z[\dA-Z]{4}[\u4e00-\u9fff]?))$/.test(
+            value
+          )
+        );
       },
       /**
        * 验证手机格式
@@ -102,25 +112,41 @@ class WxValidate {
        * 验证URL格式
        */
       url(value) {
-        return that.optional(value) || /^(?:(?:(?:https?|ftp):)?\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})).?)(?::\d{2,5})?(?:[/?#]\S*)?$/i.test(value);
+        return (
+          that.optional(value) ||
+          /^(?:(?:(?:https?|ftp):)?\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})).?)(?::\d{2,5})?(?:[/?#]\S*)?$/i.test(
+            value
+          )
+        );
       },
       /**
        * 验证日期格式
        */
       date(value) {
-        return that.optional(value) || !/Invalid|NaN/.test(new Date(value).toString());
+        return (
+          that.optional(value) ||
+          !/Invalid|NaN/.test(new Date(value).toString())
+        );
       },
       /**
        * 验证ISO类型的日期格式
        */
       dateISO(value) {
-        return that.optional(value) || /^\d{4}[\/\-](0?[1-9]|1[012])[\/\-](0?[1-9]|[12][0-9]|3[01])$/.test(value);
+        return (
+          that.optional(value) ||
+          /^\d{4}[\/\-](0?[1-9]|1[012])[\/\-](0?[1-9]|[12][0-9]|3[01])$/.test(
+            value
+          )
+        );
       },
       /**
        * 验证十进制数字
        */
       number(value) {
-        return that.optional(value) || /^(?:-?\d+|-?\d{1,3}(?:,\d{3})+)?(?:\.\d+)?$/.test(value);
+        return (
+          that.optional(value) ||
+          /^(?:-?\d+|-?\d{1,3}(?:,\d{3})+)?(?:\.\d+)?$/.test(value)
+        );
       },
       /**
        * 验证整数
@@ -132,7 +158,12 @@ class WxValidate {
        * 验证身份证号码
        */
       idcard(value) {
-        return that.optional(value) || /^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X)$/.test(value);
+        return (
+          that.optional(value) ||
+          /^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X)$/.test(
+            value
+          )
+        );
       },
       /**
        * 验证用户名（字母数字下划线）
@@ -144,7 +175,12 @@ class WxValidate {
        * 验证车牌号
        */
       truckTemplate(value) {
-        return that.optional(value) || /(^[\u4E00-\u9FA5]{1}[A-Z0-9]{6}$)|(^[A-Z]{2}[A-Z0-9]{2}[A-Z0-9\u4E00-\u9FA5]{1}[A-Z0-9]{4}$)|(^[\u4E00-\u9FA5]{1}[A-Z0-9]{5}[挂学警军港澳]{1}$)|(^[A-Z]{2}[0-9]{5}$)|(^(08|38){1}[A-Z0-9]{4}[A-Z0-9挂学警军港澳]{1}$)/.test(value);
+        return (
+          that.optional(value) ||
+          /(^[\u4E00-\u9FA5]{1}[A-Z0-9]{6}$)|(^[A-Z]{2}[A-Z0-9]{2}[A-Z0-9\u4E00-\u9FA5]{1}[A-Z0-9]{4}$)|(^[\u4E00-\u9FA5]{1}[A-Z0-9]{5}[挂学警军港澳]{1}$)|(^[A-Z]{2}[0-9]{5}$)|(^(08|38){1}[A-Z0-9]{4}[A-Z0-9挂学警军港澳]{1}$)/.test(
+            value
+          )
+        );
       },
       /**
        * 验证两个输入框的内容是否相同
@@ -174,7 +210,10 @@ class WxValidate {
        * 验证一个长度范围[min, max]
        */
       rangelength(value, param) {
-        return that.optional(value) || (value.length >= param[0] && value.length <= param[1]);
+        return (
+          that.optional(value) ||
+          (value.length >= param[0] && value.length <= param[1])
+        );
       },
       /**
        * 验证最小值
@@ -193,7 +232,7 @@ class WxValidate {
        */
       range(value, param) {
         return that.optional(value) || (value >= param[0] && value <= param[1]);
-      }
+      },
     };
   }
 
@@ -205,7 +244,8 @@ class WxValidate {
    */
   addMethod(name, method, message) {
     this.methods[name] = method;
-    this.defaults.messages[name] = message !== undefined ? message : this.defaults.messages[name];
+    this.defaults.messages[name] =
+      message !== undefined ? message : this.defaults.messages[name];
   }
 
   /**
@@ -214,7 +254,7 @@ class WxValidate {
   isValidMethod(value) {
     let methods = [];
     for (let method in this.methods) {
-      if (method && typeof this.methods[method] === 'function') {
+      if (method && typeof this.methods[method] === "function") {
         methods.push(method);
       }
     }
@@ -243,7 +283,7 @@ class WxValidate {
       params = [params];
     }
     params.forEach(function (n, i) {
-      source = source.replace(new RegExp('\\{' + i + '\\}', 'g'), function () {
+      source = source.replace(new RegExp("\\{" + i + "\\}", "g"), function () {
         return n;
       });
     });
@@ -255,13 +295,13 @@ class WxValidate {
    */
   depend(param) {
     switch (typeof param) {
-      case 'boolean':
+      case "boolean":
         param = param;
         break;
-      case 'string':
+      case "string":
         param = !!param.length;
         break;
-      case 'function':
+      case "function":
         param = param();
       default:
         param = !0;
@@ -273,7 +313,7 @@ class WxValidate {
    * 判断输入值是否为空
    */
   optional(value) {
-    return !this.methods.required(value) && 'dependency-mismatch';
+    return !this.methods.required(value) && "dependency-mismatch";
   }
 
   /**
@@ -283,7 +323,7 @@ class WxValidate {
    */
   customMessage(param, rule) {
     const params = this.messages[param];
-    const isObject = typeof params === 'object';
+    const isObject = typeof params === "object";
     if (params && isObject) return params[rule.method];
   }
 
@@ -293,12 +333,13 @@ class WxValidate {
    * @param {Object} rule 规则
    */
   defaultMessage(param, rule) {
-    let message = this.customMessage(param, rule) || this.defaults.messages[rule.method];
+    let message =
+      this.customMessage(param, rule) || this.defaults.messages[rule.method];
     let type = typeof message;
 
-    if (type === 'undefined') {
+    if (type === "undefined") {
       message = `Warning: No message defined for ${rule.method}.`;
-    } else if (type === 'function') {
+    } else if (type === "function") {
       message = message.call(this, rule.parameters);
     }
 
@@ -317,7 +358,7 @@ class WxValidate {
     this.errorList.push({
       param: param,
       msg: msg,
-      value: value
+      value: value,
     });
   }
 
@@ -332,7 +373,8 @@ class WxValidate {
     this.data = data;
 
     // 缓存字段对应的值
-    const value = data[param] !== null && data[param] !== undefined ? data[param] : '';
+    const value =
+      data[param] !== null && data[param] !== undefined ? data[param] : "";
 
     // 遍历某个指定字段的所有规则，依次验证规则，否则缓存错误信息
     for (let method in rules) {
@@ -341,13 +383,13 @@ class WxValidate {
         // 缓存规则的属性及值
         const rule = {
           method: method,
-          parameters: rules[method]
+          parameters: rules[method],
         };
         // 调用验证方法
         const result = this.methods[method](value, rule.parameters);
 
         // 若result返回值为dependency-mismatch，则说明该字段的值为空或非必填字段
-        if (result === 'dependency-mismatch') {
+        if (result === "dependency-mismatch") {
           continue;
         }
 
@@ -373,7 +415,7 @@ class WxValidate {
       $invalid: false,
       $error: {},
       $success: {},
-      $viewValue: ``
+      $viewValue: ``,
     };
   }
 

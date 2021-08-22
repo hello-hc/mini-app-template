@@ -1,4 +1,4 @@
-import Taro from '@tarojs/taro';
+import Taro from "@tarojs/taro";
 
 /**
  * 其他工具函数
@@ -29,33 +29,42 @@ class Utils {
    * 注意：获取的高度单位均为px
    */
   static async getInfoOrRect(_this, id, heightName) {
-    return await Taro.getSystemInfo().then( async function (res) {
-      const headerH = Taro.getMenuButtonBoundingClientRect();
-      _this.statusBarHeight = res.statusBarHeight; // 状态栏高度
-      _this.titleBarHeight = headerH.bottom + headerH.top - res.statusBarHeight * 2; // 标题高度
+    return await Taro.getSystemInfo()
+      .then(async function (res) {
+        const headerH = Taro.getMenuButtonBoundingClientRect();
+        _this.statusBarHeight = res.statusBarHeight; // 状态栏高度
+        _this.titleBarHeight =
+          headerH.bottom + headerH.top - res.statusBarHeight * 2; // 标题高度
 
-      const rect = Taro.createSelectorQuery().select(id).boundingClientRect();
+        const rect = Taro.createSelectorQuery().select(id).boundingClientRect();
 
-      if (rect) {
-        const domRect = await new Promise(function (resolve) {
-          rect.exec(function(response) {
-            const domData = response[0];
-            if (domData) {
-              resolve(domData);
-              _this.setState({[heightName]: res.windowHeight - domData.top - res.statusBarHeight - _this.titleBarHeight});
-            } else {
-              resolve();
-            }
+        if (rect) {
+          const domRect = await new Promise(function (resolve) {
+            rect.exec(function (response) {
+              const domData = response[0];
+              if (domData) {
+                resolve(domData);
+                _this.setState({
+                  [heightName]:
+                    res.windowHeight -
+                    domData.top -
+                    res.statusBarHeight -
+                    _this.titleBarHeight,
+                });
+              } else {
+                resolve();
+              }
+            });
           });
-        });
 
-        return domRect;
-      } else {
+          return domRect;
+        } else {
+          return null;
+        }
+      })
+      .catch(() => {
         return null;
-      }
-    }).catch(() => {
-      return null;
-    });
+      });
   }
 
   /**
@@ -66,10 +75,10 @@ class Utils {
   static showToastFn(title = "请求错误", complete = () => {}) {
     Taro.showToast({
       title,
-      icon: 'none',
+      icon: "none",
       duration: 2000,
       mask: true,
-      complete
+      complete,
     });
   }
 }

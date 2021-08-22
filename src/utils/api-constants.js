@@ -11,19 +11,18 @@ class APIConstants {
     const COMMON_RESPONSE_STATUS = this.COMMON_RESPONSE_STATUS;
 
     if (!status) {
-      return '系统异常，请稍后再试!';
+      return "系统异常，请稍后再试!";
     }
 
-    switch(status) {
+    switch (status) {
       case COMMON_RESPONSE_STATUS.SYSTEM_ABNORMAL_ERROR:
-        return '系统异常，请稍后再试!';
+        return "系统异常，请稍后再试!";
       case COMMON_RESPONSE_STATUS.TOKEN_INVALID:
-        return 'Token失效!';
+        return "Token失效!";
     }
 
-    return '请求错误，请重试';
+    return "请求错误，请重试";
   }
-
 }
 
 export default APIConstants;

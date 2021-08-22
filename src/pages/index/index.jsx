@@ -12,7 +12,8 @@ class Index extends Component {
   constructor(props) {
     super(props);
     this.state = {};
-    this.userType = props?.userInfo?.userType ?? Taro.getStorageSync("userType");
+    this.userType =
+      props?.userInfo?.userType ?? Taro.getStorageSync("userType");
   }
 
   onLoad() {
@@ -33,9 +34,9 @@ class Index extends Component {
     if (!token) return null;
 
     return (
-      <View className='index'>
-        <View className='index__content'>index page</View>
-        <TabBar val='index' />
+      <View className="index">
+        <View className="index__content">index page</View>
+        <TabBar val="index" />
       </View>
     );
   }
