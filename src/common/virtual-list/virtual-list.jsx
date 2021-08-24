@@ -17,19 +17,10 @@ const VirtualCommonList = props => {
     hasMore, // 是否显示加载更多
     listReachBottom = () => {} // 上拉加载处理函数
   } = props;
-  // 渲染列表
-  let list = [...renderList];
-  // 渲染列表数量
-  let listCount = renderList.length;
   // 是否加载
   let isLoad = true;
   // 延时器
   let timer = null;
-
-  if (renderList) {
-    list.push(`${hasMore ? "加载更多" : "--没有更多了--"}`);
-    listCount = list.length;
-  }
 
   const VirtualListRow = React.memo(rowProps => {
     const { id, index, style, data } = rowProps;
@@ -45,15 +36,25 @@ const VirtualCommonList = props => {
     );
   });
 
+  const renderBottom = () => {
+    return (
+      <View>
+        {`${hasMore ? "加载更多" : "--没有更多了--"}`}
+      </View>
+    );
+  }
+
   return (
     <View className="virtual-common-list">
       {renderList?.length ? (
         <VirtualList
           height={virtualListHeight} // 列表的高度
           width="100%" // 列表的宽度
-          itemData={list || []} // 渲染列表的数据
-          itemCount={listCount} // 渲染列表的长度
+          itemData={renderList || []} // 渲染列表的数据
+          itemCount={renderList.length} // 渲染列表的长度
           itemSize={itemSize} // 列表单项的高度
+          // unlimitedSize={true} // 解开列表节点大小限制
+          renderBottom={renderBottom()} // 列表的底部区域信息展示
           onScroll={({ scrollDirection, scrollOffset }) => {
             /** PS:
              * 这里我设置的 30 的距离底部加载数据的滚动量，触发的时候可能会执行很多次，因此
@@ -66,7 +67,7 @@ const VirtualCommonList = props => {
               // 只有往前滚动我们才触发
               scrollDirection === "forward" &&
               scrollOffset >
-                listCount * itemSize - virtualListHeight - 30
+                renderList.length * itemSize - virtualListHeight - 30
               && isLoad
             ) {
               isLoad = false;

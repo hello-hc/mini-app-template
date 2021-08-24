@@ -16,9 +16,9 @@ module.exports = {
   mini: {
     // 为生产环境配置预渲染
     // 详情查看：https://taro-docs.jd.com/taro/docs/prerender
-    prerender: {
-      match: 'pages/index/**', // 所有以 `pages/shop/` 开头的页面都参与 prerender
-    }
+    // prerender: {
+    //   match: 'pages/index/**', // 所有以 `pages/shop/` 开头的页面都参与 prerender
+    // }
   },
   h5: {
     /**

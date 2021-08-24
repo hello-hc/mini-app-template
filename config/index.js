@@ -1,4 +1,5 @@
 import path from "path";
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 
 const config = {
   projectName: "mini-app-template",
@@ -14,7 +15,10 @@ const config = {
   plugins: [],
   defineConstants: {},
   copy: {
-    patterns: [],
+    patterns: [
+      {from: 'src/resource/images/', to: 'dist/images/', ignore: ['*.js', '*.jsx']},
+      {from: 'src/resource/copyImages/', to: 'dist/copyImages/', ignore: ['*.js', '*.jsx']},
+    ],
     options: {},
   },
   framework: "react",
@@ -32,12 +36,35 @@ const config = {
         },
       },
       cssModules: {
-        enable: false, // 默认为 false，如需使用 css modules 功能，则设为 true
+        enable: true, // 默认为 false，如需使用 css modules 功能，则设为 true
         config: {
           namingPattern: "module", // 转换模式，取值为 global/module
           generateScopedName: "[name]__[local]___[hash:base64:5]",
         },
-      },
+      }
+    },
+    // output: {
+    //   filename: '[name].[contenthash].js'
+    // },
+    // miniCssExtractPluginOption: {
+    //   filename: '[name].css',
+    //   chunkFilename: '[name].css'
+    // },
+    optimizeMainPackage: {
+      enable: true
+    },
+    webpackChain (chain, webpack) {
+      chain.merge({
+        module: {
+          rules: [
+            {
+              test: /\.css$/i,
+              use: [MiniCssExtractPlugin.loader, "css-loader"],
+            }
+          ],
+        },
+        plugins: [new MiniCssExtractPlugin()]
+      })
     },
     imageUrlLoaderOption: {
       // 针对 png | jpg | jpeg | gif | bpm | svg 文件的 url-loader 配置

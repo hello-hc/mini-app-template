@@ -72,6 +72,7 @@
     "eslint-plugin-react-hooks": "^1.6.1",
     "koa-log": "^2.1.0",
     "lodash": "^4.17.21",
+    "mini-css-extract-plugin": "^2.2.0",
     "path-to-regexp": "^6.2.0",
     "stylelint": "9.3.0"
   }
