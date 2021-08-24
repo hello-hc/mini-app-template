@@ -4,8 +4,8 @@ import { useDispatch } from "react-redux";
 import { View, Checkbox, Button, Input, Text } from "@tarojs/components";
 import Taro from "@tarojs/taro";
 
-import Validate from "@/utils/wx-validate";
-import WechatAuthorization from "@/utils/wechat-authorization.js";
+import Validate from "Utils/wx-validate";
+import WechatAuthorization from "Utils/wechat-authorization.js";
 import { login, sendActiveCode } from "@/store/actions";
 
 import "./index.scss";

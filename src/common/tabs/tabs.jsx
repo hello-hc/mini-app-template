@@ -1,4 +1,4 @@
-import React, { Component, useContext } from "react";
+import React, { useContext } from "react";
 import { View } from "@tarojs/components";
 
 import "./tabs.scss";
@@ -49,6 +49,8 @@ export const Tab = (props) => {
 export const TabPane = (props) => {
   const { children, index: key } = props;
   const { parentActiveKey } = useContext(Context);
+
+  console.log(parentActiveKey, props, 'key');
 
   return (
     <View
