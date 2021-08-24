@@ -1,10 +1,7 @@
-import React, { useState, useCallback, useMemo } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React from "react";
 import { View } from "@tarojs/components";
 import VirtualList from "@tarojs/components/virtual-list";
-// import { throttle } from "lodash";
 
-// import VirtualListRow from "@/common/virtual-list-row";
 import EmptyStatus from "@/common/empty-status";
 
 import "./virtual-list.scss";
@@ -15,25 +12,27 @@ const VirtualCommonList = props => {
     // pageList, // 请求回来的一页列表数据（单页数据）
     virtualListHeight, // 列表的高度
     itemSize = 40, // 列表单项的高度
-    loading,
-    emptyText,
-    hasMore,
-    listReachBottom = () => {}
+    loading, // loading状态
+    emptyText, // 空状态文本
+    hasMore, // 是否显示加载更多
+    listReachBottom = () => {} // 上拉加载处理函数
   } = props;
-  let renderListLength = 0;
-  let newRenderList = [];
+  // 渲染列表
+  let list = [...renderList];
+  // 渲染列表数量
+  let listCount = renderList.length;
+  // 是否加载
+  let isLoad = true;
+  // 延时器
+  let timer = null;
 
-  // 在列表最后添加 “已加载完毕”
   if (renderList) {
-    newRenderList = [...renderList];
-    newRenderList.push(`${hasMore ? "加载更多" : "--没有更多了--"}`);
-    renderListLength = newRenderList.length;
-
-    console.log(555);
+    list.push(`${hasMore ? "加载更多" : "--没有更多了--"}`);
+    listCount = list.length;
   }
 
-  const VirtualListRow = React.memo(memoProps => {
-    const { id, index, style, data } = memoProps;
+  const VirtualListRow = React.memo(rowProps => {
+    const { id, index, style, data } = rowProps;
 
     return (
       <View
@@ -46,37 +45,40 @@ const VirtualCommonList = props => {
     );
   });
 
-  console.log(newRenderList, 'list');
-
   return (
     <View className="virtual-common-list">
       {renderList?.length ? (
         <VirtualList
           height={virtualListHeight} // 列表的高度
           width="100%" // 列表的宽度
-          itemData={newRenderList || []} // 渲染列表的数据
-          itemCount={renderListLength} // 渲染列表的长度
+          itemData={list || []} // 渲染列表的数据
+          itemCount={listCount} // 渲染列表的长度
           itemSize={itemSize} // 列表单项的高度
           onScroll={({ scrollDirection, scrollOffset }) => {
-            // const throttleFn = throttle(listReachBottom, 2000, {
-            //   trailing: false
-            // });
+            /** PS:
+             * 这里我设置的 30 的距离底部加载数据的滚动量，触发的时候可能会执行很多次，因此
+             * 我添加了 isLoad 来控制只执行一次。
+             * 等到函数执行后再重置回去
+             */
             if (
               // 避免重复加载数据
               !loading &&
               // 只有往前滚动我们才触发
               scrollDirection === "forward" &&
-              // virtualListHeight / itemSize = (列表高度 / 单项列表高度)
-              // 80 = 滚动提前加载量，可根据样式情况调整
               scrollOffset >
-                renderListLength * itemSize - virtualListHeight - 10
+                listCount * itemSize - virtualListHeight - 30
+              && isLoad
             ) {
-              // throttleFn();
-              // listReachBottom();
-              console.log(1234);
-            }
+              isLoad = false;
+              listReachBottom();
 
-            console.log(scrollDirection, scrollOffset, "onScroll");
+              // 一秒后重置
+              timer = setTimeout(() => {
+                isLoad = true;
+                timer = null;
+                clearTimeout(timer);
+              }, 1000);
+            }
           }}
         >
           {

@@ -1,0 +1,27 @@
+.search-input {
+  display: flex;
+  align-items: center;
+  width: 60%;
+  height: 60rpx;
+  // margin: 0 30rpx;
+  border-radius: 30rpx;
+  background-color: #b30116;
+
+  &__img {
+    width: 30rpx;
+    height: 30rpx;
+    padding: 20rpx;
+    cursor: pointer;
+  }
+
+  &__input {
+    margin: 5rpx;
+    width: 70%;
+    color: #fff;
+    font-size: 28rpx;
+
+    &-placeholder {
+      color: rgba(255, 255, 255, .8);
+    }
+  }
+}

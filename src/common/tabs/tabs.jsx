@@ -50,8 +50,6 @@ export const TabPane = (props) => {
   const { children, index: key } = props;
   const { parentActiveKey } = useContext(Context);
 
-  console.log(parentActiveKey, props, 'key');
-
   return (
     <View
       className={`tab-pane ${

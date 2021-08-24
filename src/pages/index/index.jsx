@@ -24,9 +24,14 @@ const Index = () => {
   const [tabs, setTabs] = useState(Object.values(INDEX_TABS_KEY).map(key => ({key, msg: INDEX_TABS_MSG[key]})))
   const [sysInfo, setSysInfo] = useState(null);
 
+  // TODO：这里我只是模拟了两个tab栏的数据，实际需要使用网络请求去获取对应的列表数据
+  const [timer, setTimer] = useState(null);
+  const [dataOne, setDataOne] = useState(Array(100).fill(0).map((_, i) => i + 2));
+  const dataTwo = [];
+
   useEffect(() => {
     if (!token) {
-      Taro.redirectTo({
+      return Taro.redirectTo({
         url: "/pages/login/index",
       });
     } else {
@@ -34,9 +39,6 @@ const Index = () => {
     }
 
     const info = Taro.getSystemInfoSync();
-
-    console.log(info, 'info');
-
     setSysInfo(info);
   }, []);
 
@@ -44,16 +46,25 @@ const Index = () => {
     const active = tabs.findIndex(i => i.key === key);
 
     setTabsActive(active);
-  }
+  };
+
+  const listReachBottom = () => {
+    // TODO: 模拟异步请求获取下一页的数据
+    if (!timer) {
+      setTimer(setTimeout(() => {
+        setDataOne(dataOne.concat(Array(50).fill(8).map((_, i) => i + 2)));
+        setTimer(null);
+      }, 1000));
+    }
+  };
 
   if (!token || !sysInfo) return null;
 
-  const dataOne = Array(100).fill(0).map((_, i) => i + 2);
-  const dataTwo = Array(200).fill(1).map((_, i) => i + 5);
-
-  console.log(sysInfo, 'sysInfo');
-  const height = sysInfo.windowHeight - (120 / sysInfo.pixelRatio) - (80 / sysInfo.pixelRatio);
-  console.log(height, 'height');
+  const virtualListHeight = sysInfo.windowHeight - (120 / sysInfo.pixelRatio) - (80 / sysInfo.pixelRatio);
+  const virtualCommonProps = {
+    virtualListHeight,
+    listReachBottom
+  };
 
   return (
     <View className="index">
@@ -64,10 +75,16 @@ const Index = () => {
           handleTabsClick={handleTabsClick}
         >
           <TabPane>
-            <VirtualList renderList={dataOne} virtualListHeight={height} />
+            <VirtualList
+              renderList={dataOne}
+              {...virtualCommonProps}
+            />
           </TabPane>
           <TabPane>
-            <VirtualList renderList={dataTwo} virtualListHeight={height} />
+            <VirtualList
+              renderList={dataTwo}
+              {...virtualCommonProps}
+            />
           </TabPane>
         </Tab>
       </View>
