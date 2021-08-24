@@ -209,7 +209,7 @@ function handleCommonApiError(errInfo, title) {
       Utils.showToastFn(msg ?? message, handleToastComplete);
     }
   } else {
-    showToastFn(title);
+    Utils.showToastFn(title);
   }
 }
 
@@ -218,16 +218,6 @@ function handleToastComplete() {
     isShowToast = false;
     clearTimeout(time);
   }, 2000);
-}
-
-export function showToastFn(title = "请求失败", callback = () => {}) {
-  Taro.showToast({
-    title,
-    icon: "none",
-    duration: 2000,
-    mask: true,
-    complete: () => callback(),
-  });
 }
 
 export function handleCommonError(errInfo, { title }) {
