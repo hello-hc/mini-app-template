@@ -1,11 +1,10 @@
 .search-input {
   display: flex;
   align-items: center;
-  width: 60%;
   height: 60rpx;
-  // margin: 0 30rpx;
+  margin: 20rpx;
   border-radius: 30rpx;
-  background-color: #b30116;
+  background-color: #cdcdcd;
 
   &__img {
     width: 30rpx;
@@ -21,7 +20,8 @@
     font-size: 28rpx;
 
     &-placeholder {
-      color: rgba(255, 255, 255, .8);
+      color: #f3f3f3;
+
     }
   }
 }

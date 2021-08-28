@@ -43,6 +43,7 @@
     "@tarojs/react": "3.0.23",
     "@tarojs/runtime": "3.0.23",
     "@tarojs/taro": "3.0.23",
+    "classnames": "^2.3.1",
     "koa": "^2.13.1",
     "koa-router": "^10.0.0",
     "mockjs": "^1.1.0",
@@ -72,6 +73,7 @@
     "eslint-plugin-react-hooks": "^1.6.1",
     "koa-log": "^2.1.0",
     "lodash": "^4.17.21",
+    "mini-css-extract-plugin": "^2.2.0",
     "path-to-regexp": "^6.2.0",
     "stylelint": "9.3.0"
   }

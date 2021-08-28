@@ -5,7 +5,7 @@ import SearchIcon from "@/resource/images/search.png";
 
 import "./search-input.scss";
 
-const SearchInput = (props) => {
+const SearchInput = props => {
   const {
     type,
     className,
@@ -30,16 +30,14 @@ const SearchInput = (props) => {
     <View className={`search-input ${mainClassName ?? ""}`}>
       <Image
         src={SearchIcon}
-        className='search-input__img'
+        className="search-input__img"
         onClick={searchClick}
       />
       <Input
         type={type ?? "text"}
         value={value}
-        placeholder={placeholder ? placeholder : "搜索已有数据"}
-        placeholderClass={
-          placeholderClass ?? "search-input__input-placeholder"
-        }
+        placeholder={placeholder ? placeholder : "搜索"}
+        placeholderClass={placeholderClass ?? "search-input__input-placeholder"}
         className={className ?? "search-input__input"}
         onInput={handleInput}
         onFocus={onFocus}
@@ -47,6 +45,6 @@ const SearchInput = (props) => {
       />
     </View>
   );
-}
+};
 
 export default SearchInput;

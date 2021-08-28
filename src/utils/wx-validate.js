@@ -10,7 +10,7 @@ class WxValidate {
     Object.assign(this, {
       data: {},
       rules,
-      messages,
+      messages
     });
     this.__init();
   }
@@ -55,8 +55,8 @@ class WxValidate {
         min: this.formatTpl("请输入不小于 {0} 的数值。"),
         max: this.formatTpl("请输入不大于 {0} 的数值。"),
         range: this.formatTpl("请输入范围在 {0} 到 {1} 之间的数值。"),
-        truckTemplateNumber: "请填写正确的车牌号",
-      },
+        truckTemplateNumber: "请填写正确的车牌号"
+      }
     };
   }
 
@@ -232,7 +232,7 @@ class WxValidate {
        */
       range(value, param) {
         return that.optional(value) || (value >= param[0] && value <= param[1]);
-      },
+      }
     };
   }
 
@@ -267,7 +267,7 @@ class WxValidate {
   formatTpl(source, params) {
     const that = this;
     if (arguments.length === 1) {
-      return function () {
+      return function() {
         let args = Array.from(arguments);
         args.unshift(source);
         return that.formatTpl.apply(this, args);
@@ -282,8 +282,8 @@ class WxValidate {
     if (params.constructor !== Array) {
       params = [params];
     }
-    params.forEach(function (n, i) {
-      source = source.replace(new RegExp("\\{" + i + "\\}", "g"), function () {
+    params.forEach(function(n, i) {
+      source = source.replace(new RegExp("\\{" + i + "\\}", "g"), function() {
         return n;
       });
     });
@@ -358,7 +358,7 @@ class WxValidate {
     this.errorList.push({
       param: param,
       msg: msg,
-      value: value,
+      value: value
     });
   }
 
@@ -383,7 +383,7 @@ class WxValidate {
         // 缓存规则的属性及值
         const rule = {
           method: method,
-          parameters: rules[method],
+          parameters: rules[method]
         };
         // 调用验证方法
         const result = this.methods[method](value, rule.parameters);
@@ -415,7 +415,7 @@ class WxValidate {
       $invalid: false,
       $error: {},
       $success: {},
-      $viewValue: ``,
+      $viewValue: ``
     };
   }
 

@@ -14,7 +14,7 @@ let isShowToast = false;
 const proxy = {
   protocol: "http",
   host: "localhost", // 代理服务器地址
-  port: 3000, // 端口
+  port: 3000 // 端口
   // auth: { // auth认证信息，阿布云那边有，squid 的话不需要
   //     username: '',password: ''
   // }
@@ -22,7 +22,7 @@ const proxy = {
 // const _apiHost = 'localhost';
 // const _apiPort = 3000;
 let _baseUrlDic = {
-  baseUrl: "",
+  baseUrl: ""
 };
 
 function _setBaseUrl(url) {
@@ -41,7 +41,7 @@ const defaultHeaders = {
   "Content-Type": "application/json",
   // Fixed IE cache request
   pragma: "no-cache",
-  "cache-control": "no-cache",
+  "cache-control": "no-cache"
   //version: 1.1
 };
 
@@ -68,8 +68,8 @@ function _assemblePath(pathInfo, keys, queryParams) {
 
     if (queryParams && _.isObject(queryParams)) {
       const query = Object.keys(queryParams)
-        .filter((key) => queryParams[key])
-        .map((key) => `${key}=${queryParams[key]}`)
+        .filter(key => queryParams[key])
+        .map(key => `${key}=${queryParams[key]}`)
         .join("&");
 
       result = `${result}?${query}`;
@@ -80,14 +80,14 @@ function _assemblePath(pathInfo, keys, queryParams) {
 
   return {
     path: result,
-    ...others,
+    ...others
   };
 }
 
 function _getHeaders() {
   return {
     token: Taro.getStorageSync("token"),
-    ...defaultHeaders,
+    ...defaultHeaders
     // moduleType: moduleType,
     // locale: CommonUtil.getLocale()
   };
@@ -135,7 +135,7 @@ function _delete(url, params, ...rest) {
  * axios请求配置项: http://www.axios-js.com/zh-cn/docs/#%E8%AF%B7%E6%B1%82%E9%85%8D%E7%BD%AE
  */
 function _request({ path: url }, params = {}, method, { headers = null } = {}) {
-  return new Promise(function (resolve, reject) {
+  return new Promise(function(resolve, reject) {
     console.log("请求url：" + _baseUrlDic.baseUrl + url);
     console.log("请求头：", _getHeaders());
     console.log("请求参数：", params);
@@ -148,7 +148,7 @@ function _request({ path: url }, params = {}, method, { headers = null } = {}) {
       if (showLoading !== false && !isShowToast) {
         Taro.showLoading({
           title: "正在加载中...",
-          mask: true,
+          mask: true
         });
       }
       params = otherParams;
@@ -162,9 +162,9 @@ function _request({ path: url }, params = {}, method, { headers = null } = {}) {
       headers: { ..._getHeaders(), ...headers },
       data: params,
       proxy: proxy,
-      timeout: 60000, // 请求超时时长
+      timeout: 60000 // 请求超时时长
     })
-      .then((res) => {
+      .then(res => {
         if (isShowLoading !== false) {
           Taro.hideLoading();
         }
@@ -184,7 +184,7 @@ function _request({ path: url }, params = {}, method, { headers = null } = {}) {
           // handleCommonApiError(res.data, reject);
         }
       })
-      .catch((err) => {
+      .catch(err => {
         Taro.hideLoading();
         reject(err);
       });
@@ -209,7 +209,7 @@ function handleCommonApiError(errInfo, title) {
       Utils.showToastFn(msg ?? message, handleToastComplete);
     }
   } else {
-    showToastFn(title);
+    Utils.showToastFn(title);
   }
 }
 
@@ -218,16 +218,6 @@ function handleToastComplete() {
     isShowToast = false;
     clearTimeout(time);
   }, 2000);
-}
-
-export function showToastFn(title = "请求失败", callback = () => {}) {
-  Taro.showToast({
-    title,
-    icon: "none",
-    duration: 2000,
-    mask: true,
-    complete: () => callback(),
-  });
 }
 
 export function handleCommonError(errInfo, { title }) {

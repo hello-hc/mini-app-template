@@ -7,12 +7,12 @@ import HomeImg from "@/resource/images/home.svg";
 
 import "./nav-bar.scss";
 
-const CustomNavBar = (props) => {
+const CustomNavBar = props => {
   const {
-    title = '',
+    title = "",
     height = 80,
     showInput = false,
-    searchInputProps = {},
+    searchInputProps = {}
   } = props;
 
   const handleClick = () => {

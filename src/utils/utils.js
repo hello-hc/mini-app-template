@@ -30,17 +30,19 @@ class Utils {
    */
   static async getInfoOrRect(_this, id, heightName) {
     return await Taro.getSystemInfo()
-      .then(async function (res) {
+      .then(async function(res) {
         const headerH = Taro.getMenuButtonBoundingClientRect();
         _this.statusBarHeight = res.statusBarHeight; // 状态栏高度
         _this.titleBarHeight =
           headerH.bottom + headerH.top - res.statusBarHeight * 2; // 标题高度
 
-        const rect = Taro.createSelectorQuery().select(id).boundingClientRect();
+        const rect = Taro.createSelectorQuery()
+          .select(id)
+          .boundingClientRect();
 
         if (rect) {
-          const domRect = await new Promise(function (resolve) {
-            rect.exec(function (response) {
+          const domRect = await new Promise(function(resolve) {
+            rect.exec(function(response) {
               const domData = response[0];
               if (domData) {
                 resolve(domData);
@@ -49,7 +51,7 @@ class Utils {
                     res.windowHeight -
                     domData.top -
                     res.statusBarHeight -
-                    _this.titleBarHeight,
+                    _this.titleBarHeight
                 });
               } else {
                 resolve();
@@ -78,7 +80,7 @@ class Utils {
       icon: "none",
       duration: 2000,
       mask: true,
-      complete,
+      complete
     });
   }
 }

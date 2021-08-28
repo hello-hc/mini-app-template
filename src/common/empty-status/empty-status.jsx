@@ -5,7 +5,7 @@ import emptyImg from "@/resource/images/noOrdersIcon.svg";
 
 import "./empty-status.scss";
 
-const EmptyStatus = (props) => {
+const EmptyStatus = props => {
   const { imgSrc, text, ...restProps } = props;
 
   return (

@@ -1,3 +1,18 @@
 .index {
-  background-color: #f3f3f3;
+  background-color: white;
+
+  &__content {
+    overflow: auto;
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+
+    &--list {
+      .card {
+        margin: 30rpx;
+      }
+    }
+  }
 }

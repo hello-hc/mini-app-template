@@ -5,7 +5,7 @@ import "./tabs.scss";
 
 const Context = React.createContext(null);
 
-export const Tab = (props) => {
+export const Tab = props => {
   const { tabs, children, activeKey, style, handleTabsClick } = props;
 
   return (
@@ -37,7 +37,7 @@ export const Tab = (props) => {
         <View className="tabs__children">
           {React.Children.map(children, (child, index) => {
             return React.cloneElement(child, {
-              index: index.toString(),
+              index: index.toString()
             });
           })}
         </View>
@@ -46,7 +46,7 @@ export const Tab = (props) => {
   );
 };
 
-export const TabPane = (props) => {
+export const TabPane = props => {
   const { children, index: key } = props;
   const { parentActiveKey } = useContext(Context);
 

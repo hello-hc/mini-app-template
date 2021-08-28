@@ -12,19 +12,19 @@ class LocationUtils {
   static getCurrentLocation(success, fail) {
     Taro.getSetting({
       success(res) {
-        const getLocationFunction = function () {
+        const getLocationFunction = function() {
           Taro.showLoading({ mask: true });
           Taro.getLocation({
             type: "gcj02",
-            success: function (locationRes) {
+            success: function(locationRes) {
               Taro.hideLoading();
               let baiduLocation = LocationUtils.gcjToBaidu(locationRes);
               success(baiduLocation);
             },
-            fail: function () {
+            fail: function() {
               Taro.hideLoading();
               fail();
-            },
+            }
           });
         };
 
@@ -40,12 +40,12 @@ class LocationUtils {
                 showCancel: false,
                 success() {
                   Taro.openSetting();
-                },
+                }
               });
-            },
+            }
           });
         }
-      },
+      }
     });
   }
 
@@ -71,12 +71,12 @@ class LocationUtils {
                 showCancel: false,
                 success() {
                   Taro.openSetting();
-                },
+                }
               });
-            },
+            }
           });
         }
-      },
+      }
     });
   }
 
@@ -86,7 +86,7 @@ class LocationUtils {
    */
   static startLocationMonitorFunction(uploadLocations) {
     Taro.startLocationUpdateBackground();
-    Taro.onLocationChange(function (locationRes) {
+    Taro.onLocationChange(function(locationRes) {
       const storedLocations = Taro.getStorageSync("BackgroundLocations") || [];
       const lastPoint = storedLocations[storedLocations.length - 1];
       const currentTime = new Date();
@@ -99,7 +99,7 @@ class LocationUtils {
           latitude: baiduLocation.latitude,
           longitude: baiduLocation.longitude,
           date: currentTime,
-          showLoading: false,
+          showLoading: false
         });
         Taro.removeStorageSync("isFirst");
       }
@@ -114,7 +114,7 @@ class LocationUtils {
         storedLocations.push({
           latitude: baiduLocation.latitude,
           longitude: baiduLocation.longitude,
-          date: currentTime,
+          date: currentTime
         });
         // 实时存储位置信息（有需要可以自行开启）
         // Taro.setStorageSync('CurrentBackgroundLocation', {
@@ -131,7 +131,7 @@ class LocationUtils {
           latitude: baiduLocation.latitude,
           longitude: baiduLocation.longitude,
           date: currentTime,
-          showLoading: false,
+          showLoading: false
         });
         Taro.removeStorageSync("BackgroundLocations");
       } else {
@@ -162,8 +162,8 @@ class LocationUtils {
    *  @param {Object} point
    */
   static baiduToGcj(point) {
-    const {latitude, longitude} = point;
-    const xPi = 3.14159265358979323846264338327950288 * 3000.0 / 180.0;
+    const { latitude, longitude } = point;
+    const xPi = (3.14159265358979323846264338327950288 * 3000.0) / 180.0;
 
     const x = longitude - 0.0065;
     const y = latitude - 0.006;
