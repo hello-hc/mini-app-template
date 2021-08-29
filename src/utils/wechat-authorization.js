@@ -18,19 +18,19 @@ class WechatAuthorization {
         params = {
           code,
           mobile: data.mobile,
-          smsCode: data.activeCode,
+          smsCode: data.activeCode
         };
       } else {
         params = {
           code,
           iv: data.iv,
-          encryptedData: data.encryptedData,
+          encryptedData: data.encryptedData
         };
       }
       dispatch(
         login({
           ...params,
-          callback: (result) => {
+          callback: result => {
             const { token, type, mobile } = result;
             if (token && type && mobile) {
               Taro.setStorageSync("token", token);
@@ -42,7 +42,7 @@ class WechatAuthorization {
             } else {
               Taro.showToast({ title: "登录失败", icon: "none" });
             }
-          },
+          }
         })
       );
     };
@@ -56,20 +56,20 @@ class WechatAuthorization {
    * @param {Function} callback
    */
   static checkSessionAndLogin(callback) {
-    const wxLogin = function () {
+    const wxLogin = function() {
       Taro.showLoading({ title: "登录中" });
       Taro.login({
-        success: function (res) {
+        success: function(res) {
           Taro.hideLoading();
           Taro.setStorageSync("WxLoginCode", res.code);
           if (typeof callback === "function") {
             callback();
           }
         },
-        fail: function () {
+        fail: function() {
           Taro.hideLoading();
           Taro.showToast({ title: "登录失败", icon: "none" });
-        },
+        }
       });
     };
 
@@ -85,7 +85,7 @@ class WechatAuthorization {
       },
       fail() {
         wxLogin();
-      },
+      }
     });
   }
 }

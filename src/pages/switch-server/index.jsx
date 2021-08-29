@@ -11,16 +11,16 @@ const SwitchServer = () => {
   const [serverList, setServerList] = useState([
     {
       name: "login",
-      address: "https://login.cn/mini/app",
+      address: "https://login.cn/mini/app"
     },
     {
       name: "qa",
-      address: "https://qa.cn/mini/app",
+      address: "https://qa.cn/mini/app"
     },
     {
       name: "dev",
-      address: "http://localhost:3000",
-    },
+      address: "http://localhost:3000"
+    }
   ]);
   const serverUrl = ApiRequest.getBaseUrl();
 
@@ -44,7 +44,7 @@ const SwitchServer = () => {
     setServerList([...serverList]);
   }, []);
 
-  const radioChange = (e) => {
+  const radioChange = e => {
     for (let serverDic of serverList) {
       if (serverDic.name === e.detail.value) {
         serverDic.checked = true;
@@ -67,7 +67,7 @@ const SwitchServer = () => {
   return (
     <View className="switch-server">
       <RadioGroup className="radio-group" onChange={radioChange}>
-        {serverList.map((item) => {
+        {serverList.map(item => {
           const { name, checked, address = "" } = item;
 
           return (

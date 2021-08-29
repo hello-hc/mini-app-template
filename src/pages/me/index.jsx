@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { View, Button, Text, OpenData } from "@tarojs/components";
 import Taro from "@tarojs/taro";
 
-import TabBar from "@/common/tab-bar/tab-bar.jsx";
+import TabBar from "@/common/tab-bar";
 import { initState } from "@/store";
 import { userLogout } from "@/store/actions";
 import Utils from "@/utils/utils";
@@ -11,7 +11,7 @@ import Utils from "@/utils/utils";
 import "./index.scss";
 
 const Me = () => {
-  const userInfo = useSelector((props) => props.common.userInfo);
+  const userInfo = useSelector(props => props.common.userInfo);
   const dispatch = useDispatch();
 
   // 跳转至登录页
@@ -24,8 +24,8 @@ const Me = () => {
    */
   const logout = () => {
     Taro.showModal({
-      title: "确认退出登录吗",
-    }).then((res) => {
+      title: "确认退出登录吗"
+    }).then(res => {
       if (res.confirm) {
         // 退出登录，清除本地缓存
         Taro.clearStorage({
@@ -37,7 +37,7 @@ const Me = () => {
           },
           fail: () => {
             Utils.showToastFn("退出登录失败");
-          },
+          }
         });
       }
     });

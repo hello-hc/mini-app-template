@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "baseUrl": ".",
+    "jsx": "react",
+    "paths": {
+      "@/*": ["./src/*"],
+      "Utils/*": ["./src/utils/*"]
+    }
+  },
+  "exclude": ["node_modules", "dist"]
+}

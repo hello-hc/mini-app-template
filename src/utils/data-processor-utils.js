@@ -11,7 +11,7 @@ class DataProcessorUtils {
    */
   static set(key, data) {
     if (typeof key === "object") {
-      Object.keys(key).forEach((item) => {
+      Object.keys(key).forEach(item => {
         Taro.setStorage({ key: item, data: key[item] });
       });
     } else {
@@ -36,7 +36,7 @@ class DataProcessorUtils {
    */
   static remove(data, successCallback = () => {}) {
     if (data instanceof Array) {
-      data.forEach((item) => Taro.removeStorage(item));
+      data.forEach(item => Taro.removeStorage(item));
     } else if (data instanceof Object) {
       Taro.removeStorage(data);
     } else {

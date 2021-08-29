@@ -1,0 +1,15 @@
+.empty-status {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  &__img {
+    width: 200rpx;
+    height: 250rpx;
+  }
+
+  &__text {
+    color: #ccc;
+  }
+}

@@ -1,15 +1,10 @@
 export default {
-  pages: [
-    'pages/index/index',
-    'pages/me/index',
-    'pages/switch-server/index',
-  ],
+  pages: ["pages/index/index", "pages/me/index"],
   tabBar: {
     color: "#333",
     selectedColor: "#93B5CF",
     backgroundColor: "#fff",
-    list:
-    [
+    list: [
       {
         text: "首页",
         pagePath: "pages/index/index",
@@ -23,28 +18,33 @@ export default {
         selectedIconPath: "resource/copyImages/me_active.png"
       }
     ],
-    custom: true,
+    custom: true
   },
   permission: {
     "scope.userLocation": {
-      "desc": "获取位置信息"
+      desc: "获取位置信息"
     }
   },
-  requiredBackgroundModes: ['location'],
+  requiredBackgroundModes: ["location"],
   window: {
     backgroundTextStyle: "light",
     navigationBarBackgroundColor: "#fff",
     navigationBarTitleText: "WeChat",
-    navigationBarTextStyle: "black",
+    navigationBarTextStyle: "white",
     onReachBottomDistance: 50
   },
   // 分包加载示例（同小程序配置 https://developers.weixin.qq.com/miniprogram/dev/framework/subpackages/basic.html），如果有需要请自行添加
   subpackages: [
     {
       root: "pages/login", // 分包根目录
-      pages: [ // 分包页面路径，相对于分包根目录
-        'index',
+      pages: [
+        // 分包页面路径，相对于分包根目录
+        "index"
       ]
     },
+    {
+      root: "pages/switch-server",
+      pages: ["index"]
+    }
   ]
 };

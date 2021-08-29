@@ -3,7 +3,7 @@ class APIConstants {
     return {
       SUCCESS: 200,
       SYSTEM_ABNORMAL_ERROR: 2000,
-      TOKEN_INVALID: 3000,
+      TOKEN_INVALID: 3000
     };
   }
 
