@@ -1,20 +1,21 @@
 export default {
-  pages: [
-    'pages/index/index',
-    'pages/me/index',
-    'pages/switch-server/index',
-  ],
+  pages: ["pages/index/index", "pages/book/index", "pages/me/index"],
   tabBar: {
     color: "#333",
     selectedColor: "#93B5CF",
     backgroundColor: "#fff",
-    list:
-    [
+    list: [
       {
         text: "首页",
         pagePath: "pages/index/index",
         iconPath: "resource/copyImages/home.png",
         selectedIconPath: "resource/copyImages/home_active.png"
+      },
+      {
+        text: "书城",
+        pagePath: "pages/book/index",
+        iconPath: "resource/copyImages/book.png",
+        selectedIconPath: "resource/copyImages/book_active.png"
       },
       {
         text: "我的",
@@ -23,14 +24,14 @@ export default {
         selectedIconPath: "resource/copyImages/me_active.png"
       }
     ],
-    custom: true,
+    custom: true
   },
   permission: {
     "scope.userLocation": {
-      "desc": "获取位置信息"
+      desc: "获取位置信息"
     }
   },
-  requiredBackgroundModes: ['location'],
+  requiredBackgroundModes: ["location"],
   window: {
     backgroundTextStyle: "light",
     navigationBarBackgroundColor: "#fff",
@@ -42,9 +43,14 @@ export default {
   subpackages: [
     {
       root: "pages/login", // 分包根目录
-      pages: [ // 分包页面路径，相对于分包根目录
-        'index',
+      pages: [
+        // 分包页面路径，相对于分包根目录
+        "index"
       ]
     },
+    {
+      root: "pages/switch-server",
+      pages: ["index"]
+    }
   ]
 };

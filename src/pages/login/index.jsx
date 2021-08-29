@@ -29,7 +29,7 @@ const Login = () => {
     // 初始化校验规则
     initValidate();
     setAgreePrivacyPolicy(false);
-    Taro.login().then((res) => Taro.setStorageSync("WxLoginCode", res.code));
+    Taro.login().then(res => Taro.setStorageSync("WxLoginCode", res.code));
   }, []);
 
   // 初始化校验函数
@@ -37,26 +37,26 @@ const Login = () => {
     const rules = {
       phoneNumber: {
         required: true,
-        phone: true,
+        phone: true
       },
       verificationCode: {
-        required: true,
-      },
+        required: true
+      }
     };
     const messages = {
       phoneNumber: {
         required: "请填写你的手机号码",
-        phone: "请填写正确的手机号码",
+        phone: "请填写正确的手机号码"
       },
       verificationCode: {
-        required: "验证码为空",
-      },
+        required: "验证码为空"
+      }
     };
     setValidate(new Validate(rules, messages));
   };
 
   // 获取手机号
-  const onGetPhoneNumber = (data) => {
+  const onGetPhoneNumber = data => {
     if (!data) {
       setIsManuallyLogin(true);
       setAgreePrivacyPolicy(false);
@@ -83,7 +83,7 @@ const Login = () => {
     WechatAuthorization.authorization(
       {
         mobile: phoneNumber,
-        activeCode: verificationCode,
+        activeCode: verificationCode
       },
       login,
       true,
@@ -145,11 +145,11 @@ const Login = () => {
     }
   };
 
-  const getPhoneNumber = (e) => {
+  const getPhoneNumber = e => {
     if (!agreePrivacyPolicy) {
       return Taro.showToast({
         title: "请勾选服务协议",
-        icon: "none",
+        icon: "none"
       });
     }
     const { errMsg } = e.detail;
@@ -188,7 +188,7 @@ const Login = () => {
               className="login__form--phone-number"
               placeholder="手机号"
               value={phoneNumber}
-              onInput={(e) => setPhoneNumber(e.detail.value)}
+              onInput={e => setPhoneNumber(e.detail.value)}
             />
             <Button
               className="login__form--phone-button"
@@ -205,7 +205,7 @@ const Login = () => {
               className="login__form--verification-code"
               placeholder="验证码"
               value={verificationCode}
-              onInput={(e) => setVerificationCode(e.detail.value)}
+              onInput={e => setVerificationCode(e.detail.value)}
             />
           </View>
           <Button className="login__form-button" onClick={onSubmit}>
@@ -218,7 +218,7 @@ const Login = () => {
           className="login__bottom-checkbox"
           color="#93B5CF"
           checked={agreePrivacyPolicy}
-          onClick={(e) => {
+          onClick={e => {
             e.stopPropagation();
             setAgreePrivacyPolicy(!agreePrivacyPolicy);
           }}

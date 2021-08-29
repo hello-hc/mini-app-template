@@ -18,7 +18,7 @@ class ImageUtils {
       compressPathList.push(compressPath);
     }
 
-    return new Promise((resolve) => {
+    return new Promise(resolve => {
       resolve(compressPathList);
     });
   }
@@ -59,7 +59,7 @@ class ImageUtils {
         fail() {
           console.log("获取图片信息失败");
           reject();
-        },
+        }
       });
     });
   }
@@ -102,21 +102,21 @@ class ImageUtils {
                 width: width,
                 height: height,
                 quality: 0.8, // 质量压缩
-                success: function (res) {
+                success: function(res) {
                   console.log("Canvas绘制完成", res.tempFilePath);
                   resolve(res.tempFilePath);
                 },
-                fail: function (err) {
+                fail: function(err) {
                   console.log("Canvas绘制失败", err);
                   reject(err);
-                },
+                }
               });
             }, 200)
           );
         },
         fail(err) {
           reject(err);
-        },
+        }
       });
     });
   }

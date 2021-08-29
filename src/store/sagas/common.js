@@ -3,7 +3,7 @@ import { call, put, take, actionChannel } from "redux-saga/effects";
 // import Utils from "@/utils/utils";
 import { handleCommonError } from "@/utils/api-request";
 import * as actions from "../actions";
-import { SEND_ACTIVE_CODE, LOGIN } from "../constants";
+import { SEND_ACTIVE_CODE, LOGIN, GET_LIST } from "../constants";
 import { CommonServices } from "../services";
 
 export function* login() {
@@ -37,6 +37,25 @@ export function* sendActiveCode() {
       yield call(CommonServices.sendActiveCode, action.data);
     } catch (error) {
       handleCommonError(error, { title: "获取验证码失败" });
+    }
+  }
+}
+
+export function* requestList() {
+  const channel = yield actionChannel(GET_LIST);
+
+  while (true) {
+    const action = yield take(channel);
+
+    try {
+      yield put(actions.loadingStart());
+      const response = yield call(CommonServices.requestList, action.data);
+
+      yield put(actions.getListSuccess(response.data));
+    } catch (error) {
+      handleCommonError(error, { title: "获取列表数据失败" });
+    } finally {
+      yield put(actions.loadingEnd());
     }
   }
 }

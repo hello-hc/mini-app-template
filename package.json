@@ -43,6 +43,7 @@
     "@tarojs/react": "3.0.23",
     "@tarojs/runtime": "3.0.23",
     "@tarojs/taro": "3.0.23",
+    "classnames": "^2.3.1",
     "koa": "^2.13.1",
     "koa-router": "^10.0.0",
     "mockjs": "^1.1.0",

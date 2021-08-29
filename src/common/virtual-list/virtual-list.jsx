@@ -1,6 +1,7 @@
 import React from "react";
 import { View } from "@tarojs/components";
 import VirtualList from "@tarojs/components/virtual-list";
+import classNames from "classnames";
 
 import EmptyStatus from "@/common/empty-status";
 
@@ -8,6 +9,7 @@ import "./virtual-list.scss";
 
 const VirtualCommonList = props => {
   const {
+    className,
     renderList, // 每次加载回来的列表数据（页数据集合）
     // pageList, // 请求回来的一页列表数据（单页数据）
     virtualListHeight, // 列表的高度
@@ -15,26 +17,23 @@ const VirtualCommonList = props => {
     loading, // loading状态
     emptyText, // 空状态文本
     hasMore, // 是否显示加载更多
-    listReachBottom = () => {} // 上拉加载处理函数
+    listReachBottom = () => {}, // 上拉加载处理函数
+    VirtualListRow
   } = props;
   // 是否加载
   let isLoad = true;
   // 延时器
   let timer = null;
 
-  const VirtualListRow = React.memo(rowProps => {
-    const { id, index, style, data } = rowProps;
+  const classes = classNames("virtual-common-list", className);
 
+  const renderBottom = () => {
     return (
-      <View
-        id={id}
-        className={index % 2 ? "ListItemOdd" : "ListItemEven"}
-        style={style}
-      >
-        Row {index} : {data[index]}
+      <View className="virtual-common-list__bottom">
+        {`${hasMore ? "- 加载更多 -" : "- 没有更多了 -"}`}
       </View>
     );
-  });
+  };
 
   const renderBottom = () => {
     return (
@@ -45,7 +44,7 @@ const VirtualCommonList = props => {
   }
 
   return (
-    <View className="virtual-common-list">
+    <View className={classes}>
       {renderList?.length ? (
         <VirtualList
           height={virtualListHeight} // 列表的高度
@@ -82,9 +81,7 @@ const VirtualCommonList = props => {
             }
           }}
         >
-          {
-            VirtualListRow // 列表单项组件，这里只能传入一个组件
-          }
+          {VirtualListRow}
         </VirtualList>
       ) : (
         // 空状态

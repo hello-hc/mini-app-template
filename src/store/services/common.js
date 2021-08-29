@@ -8,3 +8,9 @@ export async function login(data) {
 export async function sendActiveCode(data) {
   return await ApiRequest.post(ApiConfig.API_INFO.sendActiveCode, data);
 }
+
+export async function requestList(data) {
+  return ApiRequest.get(
+    ApiRequest.assemblePath(ApiConfig.API_INFO.requestList, null, data)
+  );
+}

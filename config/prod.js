@@ -1,7 +1,7 @@
 // eslint-disable-next-line import/no-commonjs
 module.exports = {
   env: {
-    NODE_ENV: '"production"',
+    NODE_ENV: '"production"'
   },
   defineConstants: {},
   terser: {
@@ -9,9 +9,12 @@ module.exports = {
     config: {
       // 配置项同 https://github.com/terser/terser#minify-options
       format: {
-        comments: false,
+        comments: "all"
       },
-    },
+      compress: {
+        unsafe_proto: true
+      }
+    }
   },
   mini: {
     // 为生产环境配置预渲染
@@ -29,5 +32,5 @@ module.exports = {
      *     .use(require('webpack-bundle-analyzer').BundleAnalyzerPlugin, [])
      * }
      */
-  },
+  }
 };

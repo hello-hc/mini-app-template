@@ -9,3 +9,6 @@ export const SET_USER_INFO = Symbol("SET_USER_INFO");
 
 export const SEND_ACTIVE_CODE = Symbol("SEND_ACTIVE_CODE");
 export const SEND_ACTIVE_CODE_SUCCESS = Symbol("SEND_ACTIVE_CODE_SUCCESS");
+
+export const GET_LIST = Symbol("GET_LIST");
+export const GET_LIST_SUCCESS = Symbol("GET_LIST_SUCCESS");
