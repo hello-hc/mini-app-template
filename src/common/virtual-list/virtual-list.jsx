@@ -35,14 +35,6 @@ const VirtualCommonList = props => {
     );
   };
 
-  const renderBottom = () => {
-    return (
-      <View>
-        {`${hasMore ? "加载更多" : "--没有更多了--"}`}
-      </View>
-    );
-  }
-
   return (
     <View className={classes}>
       {renderList?.length ? (

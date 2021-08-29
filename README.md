@@ -3,6 +3,9 @@
 ## 项目介绍
   **此项目基于Taro3.x开发的微信小程序模版**
 
+> 注意：目前暂时还无法通过taro init [projectName] --template [templateName] 此种命令来直接进行构建
+> 目前此项目可作为taro小程序开发直接使用（也可作为模版参考）
+> 后续会继续优化和实现使用taro命令来初始化项目
 
 ## 主要技术栈
   Taro3.x + React (Hooks) + React Redux + React Saga + Axios + Sass + Eslint

@@ -1,5 +1,5 @@
 export default {
-  pages: ["pages/index/index", "pages/book/index", "pages/me/index"],
+  pages: ["pages/index/index", "pages/me/index"],
   tabBar: {
     color: "#333",
     selectedColor: "#93B5CF",
@@ -10,12 +10,6 @@ export default {
         pagePath: "pages/index/index",
         iconPath: "resource/copyImages/home.png",
         selectedIconPath: "resource/copyImages/home_active.png"
-      },
-      {
-        text: "书城",
-        pagePath: "pages/book/index",
-        iconPath: "resource/copyImages/book.png",
-        selectedIconPath: "resource/copyImages/book_active.png"
       },
       {
         text: "我的",

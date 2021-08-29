@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import { View, Image } from "@tarojs/components";
 import Taro from "@tarojs/taro";
 
-import BookIcon from "@/resource/copyImages/book.png";
-import BookSelectedIcon from "@/resource/copyImages/book_active.png";
 import IndexIcon from "@/resource/copyImages/home.png";
 import MeIcon from "@/resource/copyImages/me.png";
 import IndexSelectedIcon from "@/resource/copyImages/home_active.svg";
@@ -20,13 +18,6 @@ const CustomTabBar = props => {
       iconPath: IndexIcon,
       selectedIconPath: IndexSelectedIcon,
       active: val === "index" ? true : false
-    },
-    {
-      text: "书城",
-      pagePath: "/pages/book/index",
-      iconPath: BookIcon,
-      selectedIconPath: BookSelectedIcon,
-      active: val === "book" ? true : false
     },
     {
       text: "我的",
